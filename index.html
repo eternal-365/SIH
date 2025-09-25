@@ -749,27 +749,7 @@
         const logoutBtn = document.getElementById('logout-btn');
         
         // Event Listeners
-        studentBtn.addEventListener('click', () => {
-            studentBtn.classList.add('active');
-            parentBtn.classList.remove('active');
-        });
         
-        parentBtn.addEventListener('click', () => {
-            parentBtn.classList.add('active');
-            studentBtn.classList.remove('active');
-        });
-        
-        loginBtn.addEventListener('click', () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (email && password) {
-                loginPage.style.display = 'none';
-                dashboard.style.display = 'block';
-            } else {
-                alert('Please enter both email and password');
-            }
-        });
         
         logoutBtn.addEventListener('click', () => {
             loginPage.style.display = 'flex';
