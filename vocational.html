@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocational Skills Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: white;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+        
+        .skills {
+            padding: 15px 0;
+        }
+        
+        .skill {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-title {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .skill-title:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-title.active {
+            background: #3498db;
+        }
+        
+        .topics {
+            background: rgba(0, 0, 0, 0.2);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .topics.show {
+            max-height: 500px;
+        }
+        
+        .topic {
+            padding: 12px 20px 12px 40px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .topic:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .welcome-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            display: block; /* Explicitly set display */
+        }
+        
+        .welcome-section h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+        
+        .welcome-section p {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 1.05rem;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .stat-box {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        
+        .stat-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .stat-box p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .content-section {
+            display: none; /* Hide all content sections by default */
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+        
+        .content-section.active {
+            display: block; /* Only show active content section */
+        }
+        
+        .welcome-section.active {
+            display: block; /* Show welcome section when active */
+        }
+        
+        .welcome-section:not(.active) {
+            display: none; /* Hide welcome section when not active */
+        }
+        
+        .content-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .content-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid #3498db;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .material-card, .video-card, .roadmap-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .video-card {
+            border-left-color: #e74c3c;
+        }
+        
+        .roadmap-card {
+            border-left-color: #2ecc71;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        
+        .roadmap-step {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .roadmap-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 50px;
+            width: 2px;
+            height: 40px;
+            background: #3498db;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 8px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .benefit-card {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Video Editing Specific Styles */
+        .timeline-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline-item {
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: #9b59b6;
+            border-radius: 50%;
+        }
+        
+        .era-title {
+            font-size: 1.3rem;
+            color: #9b59b6;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .uses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .use-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .use-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .use-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .trends-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .trend-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #e74c3c;
+        }
+        
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .software-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .software-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .skill-level {
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: #2ecc71;
+            border-radius: 4px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                max-height: 60vh;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .content-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1 0 50%;
+                text-align: center;
+            }
+            
+            .welcome-section, .content-section, .stat-box {
+                padding: 15px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-bottom: 15px;
+            }
+            
+            .uses-grid, .trends-container, .software-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar with skills -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Vocational Skills</h2>
+                <p>Practical Career Training</p>
+            </div>
+            
+            <div class="skills">
+                <div class="skill">
+                    <div class="skill-title" data-skill="videoediting">
+                        <span>Video Editing</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                
+                <div class="skill">
+                    <div class="skill-title" data-skill="digital">
+                        <span>Ad Creation & Digital Marketing</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                
+                <div class="skill">
+                    <div class="skill-title" data-skill="graphic">
+                        <span>Digital Content Creation</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                
+                <div class="skill">
+                    <div class="skill-title" data-skill="data">
+                        <span>Stock Trading</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                
+                <div class="skill">
+                    <div class="skill-title" data-skill="healthcare">
+                        <span>UI/UX Design</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main content area -->
+        <div class="main-content">
+            <!-- Welcome section (default view) -->
+            <div class="welcome-section active" id="welcome-content">
+                <h1>Vocational Skills Training</h1>
+                <p>Vocational skills provide practical, hands-on training for specific careers and trades. These programs are designed to give you the exact skills employers are looking for, often in a shorter time frame than traditional degree programs.</p>
+                <p>Whether you're looking to start a new career, upgrade your skills, or change professions, vocational training can provide the pathway to success.</p>
+                
+                <div class="stats">
+                    <div class="stat-box">
+                        <h3>Programs Offered</h3>
+                        <p>15+</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Job Placement Rate</h3>
+                        <p>87%</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Average Salary Increase</h3>
+                        <p>42%</p>
+                    </div>
+                </div>
+                
+                <h2>Why Vocational Training?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h3>Industry-Relevant Skills</h3>
+                        <p>Learn exactly what employers are looking for with curriculum designed in partnership with industry leaders.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Faster Completion</h3>
+                        <p>Most programs can be completed in 6-18 months, getting you into the workforce faster.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Hands-On Learning</h3>
+                        <p>Gain practical experience through projects, simulations, and often internships.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Career Support</h3>
+                        <p>Receive job placement assistance, resume building, and interview preparation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Editing Content Section -->
+            <div id="videoediting-content" class="content-section">
+                <h2>Video Editing Mastery</h2>
+                <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">Transform raw footage into compelling stories with professional video editing skills</p>
+                
+                <div class="content-tabs">
+                    <div class="tab active" data-tab="overview">Overview</div>
+                    <div class="tab" data-tab="history">History & Evolution</div>
+                    <div class="tab" data-tab="trends">Current Trends</div>
+                    <div class="tab" data-tab="applications">Applications</div>
+                    <div class="tab" data-tab="learning">Learning Path</div>
+                </div>
+                
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-content active">
+                    <div class="material-card">
+                        <h3>What is Video Editing?</h3>
+                        <p>Video editing is the process of arranging, cutting, and enhancing video footage to create a polished final product. It includes adding transitions, sound, graphics, effects, and color adjustments to convey a clear story or message.</p>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat-box">
+                            <h3>Market Size</h3>
+                            <p>$38B+</p>
+                            <small>Global Video Editing Software Market</small>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Growth Rate</h3>
+                            <p>12.5%</p>
+                            <small>Annual Growth (2023-2030)</small>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Job Demand</h3>
+                            <p>+18%</p>
+                            <small>Video Editor Jobs Growth</small>
+                        </div>
+                    </div>
+                    
+                    <h3>Essential Skills for Video Editors</h3>
+                    <div class="software-grid">
+                        <div class="software-card">
+                            <i class="fas fa-cut" style="color: #3498db; font-size: 2rem;"></i>
+                            <h4>Cutting & Trimming</h4>
+                            <div class="skill-level">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                            <p>Core Foundation</p>
+                        </div>
+                        <div class="software-card">
+                            <i class="fas fa-music" style="color: #e74c3c; font-size: 2rem;"></i>
+                            <h4>Audio Editing</h4>
+                            <div class="skill-level">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                            <p>Sound Design</p>
+                        </div>
+                        <div class="software-card">
+                            <i class="fas fa-palette" style="color: #9b59b6; font-size: 2rem;"></i>
+                            <h4>Color Grading</h4>
+                            <div class="skill-level">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                            <p>Visual Enhancement</p>
+                        </div>
+                        <div class="software-card">
+                            <i class="fas fa-film" style="color: #2ecc71; font-size: 2rem;"></i>
+                            <h4>Effects & Transitions</h4>
+                            <div class="skill-level">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                            <p>Creative Elements</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- History Tab -->
+                <div id="history-tab" class="tab-content">
+                    <div class="timeline-container">
+                        <h3>Evolution of Video Editing</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="era-title">Early 1900s</div>
+                                <p>Editing started with physical film strips, where editors manually cut and spliced film using razor blades and tape.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="era-title">1950s–60s</div>
+                                <p>The introduction of flatbed editors (like Moviola) improved the editing workflow, allowing for more precise cuts.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="era-title">1970s–80s</div>
+                                <p>Analog video editing (tape-based) became popular with television production using linear editing systems.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="era-title">1990s</div>
+                                <p>Digital editing software like Adobe Premiere (1991) and Final Cut Pro (1999) revolutionized the industry with non-linear editing.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="era-title">2000s Onward</div>
+                                <p>Cloud-based and mobile editing tools (CapCut, VN video editor, Filmora, DaVinci Resolve) made editing accessible to anyone.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trends Tab -->
+                <div id="trends-tab" class="tab-content">
+                    <h3>Current Industry Trends</h3>
+                    <div class="trends-container">
+                        <div class="trend-card">
+                            <h4>🤖 AI-Powered Editing</h4>
+                            <p>Auto-cutting, background removal, automatic subtitles, and smart editing suggestions powered by artificial intelligence.</p>
+                        </div>
+                        <div class="trend-card">
+                            <h4>📱 Short-Form Content</h4>
+                            <p>Reels, TikTok, YouTube Shorts driving huge demand for quick, engaging video content under 60 seconds.</p>
+                        </div>
+                        <div class="trend-card">
+                            <h4>🎬 4K/8K Resolution</h4>
+                            <p>High-resolution editing and cinematic effects becoming standard for professional video production.</p>
+                        </div>
+                        <div class="trend-card">
+                            <h4>☁️ Collaborative Editing</h4>
+                            <p>Cloud-based platforms enabling multiple editors to work on the same project simultaneously from different locations.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Applications Tab -->
+                <div id="applications-tab" class="tab-content">
+                    <h3>Where Video Editing is Used</h3>
+                    <div class="uses-grid">
+                        <div class="use-card">
+                            <i class="fas fa-film"></i>
+                            <h4>Film & Television</h4>
+                            <p>Professional production for movies, TV shows, and documentaries</p>
+                        </div>
+                        <div class="use-card">
+                            <i class="fas fa-share-alt"></i>
+                            <h4>Social Media</h4>
+                            <p>Content creation for platforms like YouTube, Instagram, TikTok</p>
+                        </div>
+                        <div class="use-card">
+                            <i class="fas fa-bullhorn"></i>
+                            <h4>Marketing & Advertising</h4>
+                            <p>Brand promotion, commercials, and product demonstrations</p>
+                        </div>
+                        <div class="use-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>Education</h4>
+                            <p>Online courses, tutorials, and educational content</p>
+                        </div>
+                        <div class="use-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h4>Event Coverage</h4>
+                            <p>Weddings, corporate events, sports highlights</p>
+                        </div>
+                        <div class="use-card">
+                            <i class="fas fa-user"></i>
+                            <h4>Personal Projects</h4>
+                            <p>Vlogs, travel videos, and creative expression</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Learning Path Tab -->
+                <div id="learning-tab" class="tab-content">
+                    <h3>Learning Roadmap</h3>
+                    <div class="roadmap">
+                        <div class="roadmap-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Foundation (1-2 months)</h4>
+                                <p>Learn basic editing concepts, interface navigation, and simple cuts using beginner-friendly software like CapCut or iMovie.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Intermediate Skills (2-3 months)</h4>
+                                <p>Master transitions, audio editing, basic effects, and color correction using software like Adobe Premiere Pro or DaVinci Resolve.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Advanced Techniques (3-4 months)</h4>
+                                <p>Learn motion graphics, advanced color grading, visual effects, and multi-camera editing.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Specialization (4-6 months)</h4>
+                                <p>Focus on specific niches like corporate videos, social media content, or film editing.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn">Start Learning Today</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle skill topics and show content sections
+        document.querySelectorAll('.skill-title').forEach(title => {
+            title.addEventListener('click', () => {
+                // Remove active class from all skill titles
+                document.querySelectorAll('.skill-title').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked title
+                title.classList.add('active');
+                
+                // Show the corresponding content section
+                const skillId = title.getAttribute('data-skill');
+                if (skillId) {
+                    // Hide welcome section
+                    document.getElementById('welcome-content').classList.remove('active');
+                    
+                    // Hide all content sections
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show the selected content section
+                    const contentSection = document.getElementById(`${skillId}-content`);
+                    if (contentSection) {
+                        contentSection.classList.add('active');
+                    }
+                } else {
+                    // If no skill ID, show welcome section
+                    document.getElementById('welcome-content').classList.add('active');
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                }
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Get the parent content section
+                const contentSection = tab.closest('.content-section');
+                
+                // Remove active class from all tabs in this section
+                contentSection.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all tab content in this section
+                contentSection.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Show the corresponding tab content
+                const tabName = tab.getAttribute('data-tab');
+                const tabContent = contentSection.querySelector(`#${tabName}-tab`);
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
+            });
+        });
+
+        // Set Welcome section as default active on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show welcome section, hide all content sections
+            document.getElementById('welcome-content').classList.add('active');
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all skill titles
+            document.querySelectorAll('.skill-title').forEach(title => {
+                title.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -468,7 +468,6 @@
                 <ul style="list-style: none; margin-top: 1rem;">
                     <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> NCERT Curriculum</li>
                     <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Extracurricular Activities</li>
-                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Vocational Skills</li>
                     <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Reward System</li>
                     <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Mentorship Program</li>
                 </ul>
@@ -524,9 +523,8 @@
                     <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#"><i class="fas fa-book"></i> NCERT Curriculum</a></li>
                     <li><a href="#"><i class="fas fa-paint-brush"></i> Extracurricular</a></li>
-                    <li><a href="#"><i class="fas fa-tools"></i> Vocational Skills</a></li>
+                    <li><a href="vocational.html"><i class="fas fa-tools"></i> Vocational Skills</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> Quizzes & Tests</a></li>
-                    <li><a href="#"><i class="fas fa-handshake"></i> Mentors</a></li>
                     <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                     <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -740,22 +738,26 @@
     </div>
 
     <script>
-        // DOM Elements
-        const loginPage = document.getElementById('login-page');
-        const dashboard = document.getElementById('dashboard');
-        const studentBtn = document.getElementById('student-btn');
-        const parentBtn = document.getElementById('parent-btn');
-        const loginBtn = document.getElementById('login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        
-        // Event Listeners
-        
-        
-        logoutBtn.addEventListener('click', () => {
-            loginPage.style.display = 'flex';
-            dashboard.style.display = 'none';
-        });
-        // Authentication functions
+       // DOM Elements
+const loginPage = document.getElementById('login-page');
+const dashboard = document.getElementById('dashboard');
+const studentBtn = document.getElementById('student-btn');
+const parentBtn = document.getElementById('parent-btn');
+const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
+
+// Event Listeners for user type selection
+studentBtn.addEventListener('click', () => {
+    studentBtn.classList.add('active');
+    parentBtn.classList.remove('active');
+});
+
+parentBtn.addEventListener('click', () => {
+    parentBtn.classList.add('active');
+    studentBtn.classList.remove('active');
+});
+
+// Authentication functions
 const API_BASE = 'http://localhost:3000/api';
 
 // Store token and user info
@@ -768,20 +770,56 @@ function updateUIBasedOnAuth() {
         document.getElementById('login-page').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         
-        // Update user info in dashboard
-        document.querySelector('.user-avatar').textContent = currentUser.avatar;
-        document.querySelector('.user-info div').textContent = currentUser.name;
+        // Update user info in dashboard dynamically
+        updateUserInfo(currentUser);
+        
+        // Update class information in NCERT section
+        const studentClass = currentUser.studentClass || 10;
+        const subjectCards = document.querySelectorAll('.subject-card p');
+        subjectCards.forEach(card => {
+            card.textContent = `Class ${studentClass}`;
+        });
+        
+        // Update section titles to include class
+        const ncertTitle = document.querySelector('.section-title');
+        if (ncertTitle && currentUser.studentClass) {
+            ncertTitle.textContent = `NCERT Curriculum - Class ${currentUser.studentClass}`;
+        }
         
         // Show/hide elements based on user type
         if (currentUser.userType === 'parent') {
             document.querySelector('.sidebar-menu li:nth-child(2)').style.display = 'none'; // NCERT
             document.querySelector('.sidebar-menu li:nth-child(3)').style.display = 'none'; // Extracurricular
             document.querySelector('.sidebar-menu li:nth-child(4)').style.display = 'none'; // Vocational
+        } else {
+            // Show all menu items for students
+            document.querySelector('.sidebar-menu li:nth-child(2)').style.display = 'block';
+            document.querySelector('.sidebar-menu li:nth-child(3)').style.display = 'block';
+            document.querySelector('.sidebar-menu li:nth-child(4)').style.display = 'block';
         }
     } else {
         document.getElementById('login-page').style.display = 'flex';
         document.getElementById('dashboard').style.display = 'none';
     }
+}
+
+// Function to update user information in the header
+function updateUserInfo(user) {
+    const userAvatar = document.querySelector('.user-avatar');
+    const userName = document.querySelector('.user-info div:last-child');
+    
+    if (userAvatar && userName) {
+        // Update avatar with user's initials
+        userAvatar.textContent = user.avatar || getInitials(user.name);
+        
+        // Update user name
+        userName.textContent = user.name;
+    }
+}
+
+// Helper function to get initials from name
+function getInitials(name) {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
 }
 
 // Login function
@@ -923,6 +961,21 @@ function showSignupModal() {
                     <label for="signup-student-id">Student ID (Optional)</label>
                     <input type="text" id="signup-student-id">
                 </div>
+                <div class="form-group" id="student-class-group">
+                    <label for="signup-student-class">Class</label>
+                    <select id="signup-student-class" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px; font-size: 1rem;">
+                        <option value="1">Class 1</option>
+                        <option value="2">Class 2</option>
+                        <option value="3">Class 3</option>
+                        <option value="4">Class 4</option>
+                        <option value="5">Class 5</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10" selected>Class 10</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
             </form>
             <button class="btn" style="width: 100%; margin-top: 1rem; background: #6c757d; color: white;" onclick="this.closest('div').parentElement.remove()">Cancel</button>
@@ -936,12 +989,14 @@ function showSignupModal() {
         this.classList.add('active');
         modal.querySelector('#signup-parent-btn').classList.remove('active');
         modal.querySelector('#student-id-group').style.display = 'block';
+        modal.querySelector('#student-class-group').style.display = 'block';
     });
     
     modal.querySelector('#signup-parent-btn').addEventListener('click', function() {
         this.classList.add('active');
         modal.querySelector('#signup-student-btn').classList.remove('active');
         modal.querySelector('#student-id-group').style.display = 'none';
+        modal.querySelector('#student-class-group').style.display = 'none';
     });
     
     // Form submission
@@ -953,7 +1008,8 @@ function showSignupModal() {
             email: modal.querySelector('#signup-email').value,
             password: modal.querySelector('#signup-password').value,
             userType: modal.querySelector('#signup-student-btn').classList.contains('active') ? 'student' : 'parent',
-            studentId: modal.querySelector('#signup-student-id').value
+            studentId: modal.querySelector('#signup-student-id').value,
+            studentClass: modal.querySelector('#signup-student-class').value
         };
         
         const result = await register(userData);
@@ -965,6 +1021,20 @@ function showSignupModal() {
             alert(result.error || 'Registration failed. Please try again.');
         }
     });
+}
+
+// Function to fetch and update user profile
+async function updateUserProfile() {
+    try {
+        const response = await apiCall(`${API_BASE}/profile`);
+        if (response.success) {
+            currentUser = response.user;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUserInfo(currentUser);
+        }
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+    }
 }
 
 // Initialize UI on page load

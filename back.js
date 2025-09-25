@@ -59,6 +59,7 @@ async function initializeSampleData() {
       name: "Rahul Student",
       userType: "student",
       studentId: "S123",
+      studentClass: 10,
       avatar: "RS",
       performance: {
         math: 85,
@@ -152,7 +153,7 @@ function checkRateLimit(studentId) {
 // Authentication Routes
 app.post("/api/register", async (req, res) => {
   try {
-    const { email, password, name, userType, studentId } = req.body;
+    const { email, password, name, userType, studentId, studentClass } = req.body;
 
     if (!email || !password || !name || !userType) {
       return res.status(400).json({ 
@@ -180,6 +181,7 @@ app.post("/api/register", async (req, res) => {
       name,
       userType,
       studentId: userType === 'student' ? studentId || `S${Math.random().toString(36).substr(2, 9)}` : null,
+      studentClass: userType === 'student' ? studentClass || 10 : null,
       avatar: name.split(' ').map(n => n[0]).join('').toUpperCase(),
       createdAt: new Date()
     };
@@ -218,7 +220,8 @@ app.post("/api/register", async (req, res) => {
         email: user.email,
         name: user.name,
         userType: user.userType,
-        avatar: user.avatar
+        avatar: user.avatar,
+        studentClass: user.studentClass
       }
     });
 
@@ -288,6 +291,7 @@ app.post("/api/login", async (req, res) => {
         userType: user.userType,
         avatar: user.avatar,
         studentId: user.studentId,
+        studentClass: user.studentClass,
         performance: user.performance,
         rewardPoints: user.rewardPoints
       }
@@ -318,6 +322,40 @@ app.get("/api/profile", authenticateToken, async (req, res) => {
 
   } catch (error) {
     console.error("Profile fetch error:", error);
+    res.status(500).json({ error: "Internal server error", success: false });
+  }
+});
+
+// Update user profile endpoint (including class)
+app.put("/api/profile", authenticateToken, async (req, res) => {
+  try {
+    const { name, studentClass } = req.body;
+    
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (studentClass !== undefined) updateData.studentClass = studentClass;
+    
+    const result = await db.collection("users").updateOne(
+      { email: req.user.email },
+      { $set: updateData }
+    );
+    
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: "User not found or no changes made", success: false });
+    }
+    
+    // Get updated user
+    const updatedUser = await db.collection("users").findOne({ email: req.user.email });
+    const { password, ...userWithoutPassword } = updatedUser;
+    
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+      user: userWithoutPassword
+    });
+    
+  } catch (error) {
+    console.error("Profile update error:", error);
     res.status(500).json({ error: "Internal server error", success: false });
   }
 });
@@ -386,6 +424,7 @@ app.post("/api/chat", authenticateToken, async (req, res) => {
     const studentContext = `
 Student Profile:
 - Name: ${student.name}
+- Class: ${student.studentClass || 'Not specified'}
 - Performance: Math ${student.performance?.math || 0}%, Science ${student.performance?.science || 0}%, English ${student.performance?.english || 0}%
 - Attendance: ${student.attendance || 0}%
 - Recent Remarks: ${student.remarks || "No remarks yet"}
@@ -495,6 +534,25 @@ app.get("/api/chat/history/:studentId?", authenticateToken, async (req, res) => 
   } catch (error) {
     console.error("History fetch error:", error);
     res.status(500).json({ error: "Failed to fetch chat history", success: false });
+  }
+});
+
+// Get all students (for parent dashboard)
+app.get("/api/students", authenticateToken, async (req, res) => {
+  try {
+    if (req.user.userType !== 'parent') {
+      return res.status(403).json({ error: "Access denied. Parent accounts only.", success: false });
+    }
+    
+    const students = await db.collection("users")
+      .find({ userType: 'student' })
+      .project({ password: 0 }) // Exclude password
+      .toArray();
+    
+    res.json({ students, success: true });
+  } catch (error) {
+    console.error("Students fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch students", success: false });
   }
 });
 
