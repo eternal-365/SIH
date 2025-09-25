@@ -436,6 +436,29 @@
             border-radius: 20px;
             font-size: 0.8rem;
         }
+
+    /* Language Bar Mudit */
+   
+  
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .lang-selector {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .content {
+        padding: 20px 15px;
+      }
+    }
+
+    /* end for mudit */
         
         /* Responsive */
         @media (max-width: 992px) {
@@ -461,6 +484,14 @@
     <!-- Login Page -->
     <div class="login-container" id="login-page">
         <div class="login-left">
+
+    <!-- 👇 This is where the language switcher appears Mudit -->
+    
+
+     <!-- Language options  -->
+    <!-- <div id="google_translate_element"></div> -->
+
+
             <h1>EduConnect</h1>
             <p>Empowering students with NCERT curriculum, extracurricular activities, and vocational skills development.</p>
             <div style="margin-top: 2rem; text-align: left;">
@@ -474,6 +505,7 @@
             </div>
         </div>
         <div class="login-right">
+            
             <form class="login-form">
                 <h2>Login to Your Account</h2>
                 
@@ -605,42 +637,15 @@
                     
                     <section class="main-section">
                         <div class="section-header">
-                            <h2 class="section-title">Vocational Skills</h2>
-                            <a href="#" class="view-all">View All</a>
+                            <h2 class="section-title">My Vocational Courses</h2>
+                            <a href="vocational.html" class="view-all">View All</a>
                         </div>
-                        <div class="card-grid">
-                            <div class="card">
-                                <div class="card-header">Technology</div>
-                                <div class="card-body">
-                                    <h3 class="card-title">Web Development</h3>
-                                    <p>HTML, CSS, JavaScript basics</p>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: 60%"></div>
-                                    </div>
-                                    <span class="badge badge-primary">In Progress</span>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Business</div>
-                                <div class="card-body">
-                                    <h3 class="card-title">Entrepreneurship</h3>
-                                    <p>Starting a small business</p>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: 25%"></div>
-                                    </div>
-                                    <span class="badge badge-primary">Started</span>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Arts</div>
-                                <div class="card-body">
-                                    <h3 class="card-title">Graphic Design</h3>
-                                    <p>Digital design fundamentals</p>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: 100%"></div>
-                                    </div>
-                                    <span class="badge badge-success">Completed</span>
-                                </div>
+                        <div id="vocational-courses-container">
+                            <!-- Dynamic content will be loaded here -->
+                            <div style="text-align: center; padding: 2rem; color: var(--gray);">
+                                <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                                <p>No vocational courses enrolled yet.</p>
+                                <a href="vocational.html" class="btn btn-primary" style="margin-top: 1rem;">Explore Courses</a>
                             </div>
                         </div>
                     </section>
@@ -784,6 +789,14 @@ function updateUIBasedOnAuth() {
         const ncertTitle = document.querySelector('.section-title');
         if (ncertTitle && currentUser.studentClass) {
             ncertTitle.textContent = `NCERT Curriculum - Class ${currentUser.studentClass}`;
+        }
+        
+        // Load vocational courses for the dashboard
+        if (currentUser.userType === 'student') {
+            loadVocationalCourses();
+        } else {
+            // Hide vocational section for parents
+            document.querySelector('.main-section:has(#vocational-courses-container)').style.display = 'none';
         }
         
         // Show/hide elements based on user type
@@ -964,15 +977,7 @@ function showSignupModal() {
                 <div class="form-group" id="student-class-group">
                     <label for="signup-student-class">Class</label>
                     <select id="signup-student-class" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px; font-size: 1rem;">
-                        <option value="1">Class 1</option>
-                        <option value="2">Class 2</option>
-                        <option value="3">Class 3</option>
-                        <option value="4">Class 4</option>
-                        <option value="5">Class 5</option>
-                        <option value="6">Class 6</option>
-                        <option value="7">Class 7</option>
-                        <option value="8">Class 8</option>
-                        <option value="9">Class 9</option>
+                        
                         <option value="10" selected>Class 10</option>
                     </select>
                 </div>
@@ -1023,6 +1028,114 @@ function showSignupModal() {
     });
 }
 
+// Function to load vocational courses for the dashboard
+async function loadVocationalCourses() {
+    try {
+        const response = await fetch(`${API_BASE}/vocational/courses`, {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            displayVocationalCourses(data.courses);
+        }
+    } catch (error) {
+        console.error('Error loading vocational courses:', error);
+        // Show empty state if there's an error
+        displayVocationalCourses([]);
+    }
+}
+
+// Function to display vocational courses in the dashboard
+function displayVocationalCourses(courses) {
+    const container = document.getElementById('vocational-courses-container');
+    
+    if (!courses || courses.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: var(--gray);">
+                <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <p>No vocational courses enrolled yet.</p>
+                <a href="vocational.html" class="btn btn-primary" style="margin-top: 1rem;">Explore Courses</a>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="card-grid">
+            ${courses.map(course => `
+                <div class="card">
+                    <div class="card-header" style="background: ${getCourseColor(course.courseId)};">
+                        ${course.courseName}
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">${getCourseIcon(course.courseId)} ${course.courseName}</h3>
+                        <p>Enrolled: ${new Date(course.registeredAt).toLocaleDateString()}</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${course.progress}%"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span class="badge ${course.progress === 100 ? 'badge-success' : 'badge-primary'}">
+                                ${course.progress === 100 ? 'Completed' : 'In Progress'}
+                            </span>
+                            <span style="font-size: 0.9rem; color: var(--gray);">${course.progress}%</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="openVocationalCourse('${course.courseId}')" 
+                                style="width: 100%; margin-top: 1rem;">
+                            ${course.progress === 100 ? 'Review Course' : 'Continue Learning'}
+                        </button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="vocational.html" class="view-all">Explore More Courses</a>
+        </div>
+    `;
+}
+
+// Helper function to get course colors
+function getCourseColor(courseId) {
+    const colors = {
+        'video-editing': '#3498db',
+        'digital-marketing': '#e74c3c',
+        'content-creation': '#9b59b6',
+        'stock-trading': '#2ecc71',
+        'ui-ux-design': '#f39c12'
+    };
+    return colors[courseId] || '#4361ee';
+}
+
+// Helper function to get course icons
+function getCourseIcon(courseId) {
+    const icons = {
+        'video-editing': '🎬',
+        'digital-marketing': '📊',
+        'content-creation': '✏️',
+        'stock-trading': '📈',
+        'ui-ux-design': '🎨'
+    };
+    return icons[courseId] || '📚';
+}
+
+// Function to open vocational course
+function openVocationalCourse(courseId) {
+    const videoPages = {
+        'video-editing': 'videoEditing.html',
+        'digital-marketing': 'digitalMarketing.html',
+        'content-creation': 'contentCreation.html',
+        'stock-trading': 'stockTrading.html',
+        'ui-ux-design': 'uiUxDesign.html'
+    };
+    
+    const videoPage = videoPages[courseId] || 'vocational.html';
+    window.location.href = videoPage;
+}
+
 // Function to fetch and update user profile
 async function updateUserProfile() {
     try {
@@ -1040,6 +1153,29 @@ async function updateUserProfile() {
 // Initialize UI on page load
 document.addEventListener('DOMContentLoaded', updateUIBasedOnAuth);
     </script>
+
+     <!-- Google Translate Script -->
+  <!-- <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' }, 
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+
+  <!-- Google lang script Mudit -->
+
+ 
+
+  <!-- Google lang script end -->
+
+  
+ 
+
+</body>
+</html>
 
     
 

@@ -231,6 +231,132 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+// Add to back.js after the existing endpoints
+
+// Vocational Course Registration
+app.post("/api/vocational/register", authenticateToken, async (req, res) => {
+  try {
+    const { courseId, courseName } = req.body;
+    
+    if (!courseId || !courseName) {
+      return res.status(400).json({ 
+        error: "Course ID and name are required",
+        success: false
+      });
+    }
+
+    // Check if user is a student
+    if (req.user.userType !== 'student') {
+      return res.status(403).json({ 
+        error: "Only students can register for vocational courses",
+        success: false
+      });
+    }
+
+    // Update user's vocational courses
+    const result = await db.collection("users").updateOne(
+      { _id: new ObjectId(req.user.userId) },
+      { 
+        $addToSet: { 
+          vocationalCourses: {
+            courseId,
+            courseName,
+            registeredAt: new Date(),
+            progress: 0,
+            completed: false,
+            lastAccessed: new Date()
+          }
+        }
+      }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(400).json({ 
+        error: "Failed to register for course",
+        success: false
+      });
+    }
+
+    res.json({
+      success: true,
+      message: `Successfully registered for ${courseName}`
+    });
+
+  } catch (error) {
+    console.error("Course registration error:", error);
+    res.status(500).json({ error: "Internal server error", success: false });
+  }
+});
+
+// Get Student's Vocational Courses
+app.get("/api/vocational/courses", authenticateToken, async (req, res) => {
+  try {
+    if (req.user.userType !== 'student') {
+      return res.status(403).json({ 
+        error: "Only students can access vocational courses",
+        success: false
+      });
+    }
+
+    const user = await db.collection("users").findOne(
+      { _id: new ObjectId(req.user.userId) },
+      { projection: { vocationalCourses: 1 } }
+    );
+
+    res.json({
+      success: true,
+      courses: user.vocationalCourses || []
+    });
+
+  } catch (error) {
+    console.error("Courses fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch courses", success: false });
+  }
+});
+
+// Update Course Progress
+app.put("/api/vocational/progress", authenticateToken, async (req, res) => {
+  try {
+    const { courseId, progress } = req.body;
+    
+    if (!courseId || progress === undefined) {
+      return res.status(400).json({ 
+        error: "Course ID and progress are required",
+        success: false
+      });
+    }
+
+    const result = await db.collection("users").updateOne(
+      { 
+        _id: new ObjectId(req.user.userId),
+        "vocationalCourses.courseId": courseId
+      },
+      { 
+        $set: { 
+          "vocationalCourses.$.progress": progress,
+          "vocationalCourses.$.lastAccessed": new Date()
+        }
+      }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ 
+        error: "Course not found",
+        success: false
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Progress updated successfully"
+    });
+
+  } catch (error) {
+    console.error("Progress update error:", error);
+    res.status(500).json({ error: "Failed to update progress", success: false });
+  }
+});
+
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password, userType } = req.body;
