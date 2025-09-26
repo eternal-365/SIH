@@ -605,7 +605,9 @@
 </head>
 <body>
     <!-- Student Login Page -->
+     <div id="google_translate_element"></div>
     <div class="login-container" id="login-page">
+        
         <div class="login-left">
             <h1>Studdy Buddy</h1>
             <p>Structured learning, practical skills, and a clear path from classroom to career.</p>
@@ -923,77 +925,7 @@
             
             <div class="content">
                 <div class="main-content-area">
-                    <section class="main-section">
-                        <div class="section-header">
-                            <h2 class="section-title">My Children</h2>
-                            <a href="#" class="view-all">Manage</a>
-                        </div>
-                        <div class="student-list">
-                            <div class="student-card">
-                                <div class="student-header">
-                                    <div class="student-avatar">RS</div>
-                                    <div class="student-info">
-                                        <h3>Rahul Sharma</h3>
-                                        <p>Class 10, Age: 15</p>
-                                    </div>
-                                </div>
-                                <p>Last active: Today, 2:30 PM</p>
-                                <div class="performance-metrics">
-                                    <div class="metric">
-                                        <div class="metric-value">85%</div>
-                                        <div class="metric-label">Overall Grade</div>
-                                    </div>
-                                    <div class="metric">
-                                        <div class="metric-value">92%</div>
-                                        <div class="metric-label">Attendance</div>
-                                    </div>
-                                    <div class="metric">
-                                        <div class="metric-value">15</div>
-                                        <div class="metric-label">Achievements</div>
-                                    </div>
-                                    <div class="metric">
-                                        <div class="metric-value">3</div>
-                                        <div class="metric-label">Pending Assignments</div>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 1rem;">
-                                    <button class="btn btn-primary">View Detailed Report</button>
-                                </div>
-                            </div>
-                            
-                            <div class="student-card">
-                                <div class="student-header">
-                                    <div class="student-avatar">AS</div>
-                                    <div class="student-info">
-                                        <h3>Anjali Sharma</h3>
-                                        <p>Class 8, Age: 13</p>
-                                    </div>
-                                </div>
-                                <p>Last active: Yesterday, 5:15 PM</p>
-                                <div class="performance-metrics">
-                                    <div class="metric">
-                                        <div class="metric-value">78%</div>
-                                        <div class="metric-label">Overall Grade</div>
-                                    </div>
-                                    <div class="metric">
-                                        <div class="metric-value">88%</div>
-                                        <div class="metric-label">Attendance</div>
-                                    </div>
-                                    <div class="metric">
-                                        <div class="metric-value">8</div>
-                                        <div class="metric-label">Achievements</div>
-                                    </div>
-                                    <div class="metric">
-                                        <div class="metric-value">5</div>
-                                        <div class="metric-label">Pending Assignments</div>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 1rem;">
-                                    <button class="btn btn-primary">View Detailed Report</button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    
                     
                     <section class="main-section">
                         <div class="section-header">
@@ -1005,7 +937,7 @@
                                 <div class="card-header">Mathematics</div>
                                 <div class="card-body">
                                     <h3 class="card-title">Quarterly Assessment</h3>
-                                    <p>Rahul Sharma - Class 10</p>
+                                    <p>Mudith - Class 10</p>
                                     <div class="progress-bar">
                                         <div class="progress" style="width: 85%"></div>
                                     </div>
@@ -1016,7 +948,7 @@
                                 <div class="card-header">Science</div>
                                 <div class="card-body">
                                     <h3 class="card-title">Mid-Term Exam</h3>
-                                    <p>Anjali Sharma - Class 8</p>
+                                    <p>Mudith - Class 10</p>
                                     <div class="progress-bar">
                                         <div class="progress" style="width: 78%"></div>
                                     </div>
@@ -1027,7 +959,7 @@
                                 <div class="card-header">English</div>
                                 <div class="card-body">
                                     <h3 class="card-title">Writing Skills Assessment</h3>
-                                    <p>Rahul Sharma - Class 10</p>
+                                    <p>Mudith - Class 10</p>
                                     <div class="progress-bar">
                                         <div class="progress" style="width: 92%"></div>
                                     </div>
@@ -1046,7 +978,7 @@
                             <div class="quiz-header">
                                 <h3 class="quiz-title">Parent-Teacher Meeting</h3>
                                 <div class="quiz-details">
-                                    <span class="quiz-tag">Rahul Sharma</span>
+                                    <span class="quiz-tag">Mudith</span>
                                     <span class="quiz-tag">Class 10</span>
                                 </div>
                             </div>
@@ -1059,8 +991,8 @@
                             <div class="quiz-header">
                                 <h3 class="quiz-title">Science Project Submission</h3>
                                 <div class="quiz-details">
-                                    <span class="quiz-tag">Anjali Sharma</span>
-                                    <span class="quiz-tag">Class 8</span>
+                                    <span class="quiz-tag">Mudith</span>
+                                    <span class="quiz-tag">Class 10</span>
                                 </div>
                             </div>
                             <p>Deadline: November 20, 2023</p>
@@ -1082,7 +1014,7 @@
                                     <i class="fas fa-trophy"></i>
                                 </div>
                                 <div class="notification-content">
-                                    <h4>Rahul won a Science Quiz</h4>
+                                    <h4>Mudith won a Science Quiz</h4>
                                     <p>Scored 95% in Chapter 5 Quiz</p>
                                     <div class="notification-time">2 hours ago</div>
                                 </div>
@@ -1448,5 +1380,15 @@
     window.showLinkStudentModal = showLinkStudentModal;
     window.viewStudentReport = viewStudentReport;
 </script>
+<!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' }, 
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

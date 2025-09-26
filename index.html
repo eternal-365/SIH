@@ -497,12 +497,11 @@
 </head>
 <body>
     <!-- Login Page -->
+       <div id="google_translate_element"></div>
     <div class="login-container" id="login-page">
         <div class="login-left">
             <!-- Language selector for login page -->
-            <div class="lang-selector">
-                <div id="google_translate_element_login"></div>
-            </div>
+            
             
             <h1>STUDDY BUDDY</h1>
             <p>Empowering students with NCERT curriculum, extracurricular activities, and vocational skills development.</p>
@@ -525,7 +524,7 @@
                         <i class="fas fa-user-graduate"></i> Student
                     </div>
                     <div class="user-type-btn" id="parent-btn">
-                        <i class="fas fa-users"></i> Parent
+                        <a href = "parentDashboard.html"><i class="fas fa-users"></i> Parent</a>
                     </div>
                 </div>
                 
@@ -552,14 +551,14 @@
     <div class="dashboard" id="dashboard">
         <header class="header">
             <div class="container header-content">
-                <div class="logo">EduConnect</div>
+                <div class="logo">STUDY BUDDY</div>
                 <div class="user-info">
                     <!-- Language selector for dashboard -->
                     <div class="lang-selector">
                         <div id="google_translate_element_dashboard"></div>
                     </div>
                     <div class="user-avatar">RS</div>
-                    <div>Rahul Student</div>
+                    <div>Mudith</div>
                 </div>
             </div>
         </header>
@@ -568,7 +567,7 @@
             <aside class="sidebar">
                 <ul class="sidebar-menu">
                     <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="#"><i class="fas fa-book"></i> NCERT Curriculum</a></li>
+                    <li><a href="ncert.html"><i class="fas fa-book"></i> NCERT Curriculum</a></li>
                     <li><a href="extracarrculum.html" id="extracurricular-link"><i class="fas fa-paint-brush"></i> Extracurricular</a></li>
                     <li><a href="vocational.html"><i class="fas fa-tools"></i> Vocational Skills</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> Quizzes & Tests</a></li>
@@ -1130,45 +1129,6 @@
             });
         }
 
-        // Initialize Google Translate with different element IDs
-        function initializeGoogleTranslate(page) {
-            const elementId = `google_translate_element_${page}`;
-            
-            // Clear any existing Google Translate widget
-            const existingWidget = document.getElementById(elementId);
-            if (existingWidget) {
-                existingWidget.innerHTML = '';
-            }
-            
-            // Create new Google Translate widget
-            if (window.google && window.google.translate) {
-                new google.translate.TranslateElement({
-                    pageLanguage: 'en',
-                    includedLanguages: 'en,hi,ta,te,ml,kn,bn,mr,gu,pa,ur',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                }, elementId);
-            } else {
-                // If Google Translate API isn't loaded yet, try again in a moment
-                setTimeout(() => initializeGoogleTranslate(page), 100);
-            }
-        }
-
-        // Load Google Translate API
-        function loadGoogleTranslate() {
-            const script = document.createElement('script');
-            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
-        }
-
-        // Global callback function for Google Translate
-        window.googleTranslateElementInit = function() {
-            // Initialize translate for the current page
-            if (authToken && currentUser) {
-                initializeGoogleTranslate('dashboard');
-            } else {
-                initializeGoogleTranslate('login');
-            }
-        };
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -1283,5 +1243,16 @@
             window.location.href = `vocational.html?course=${courseId}`;
         }
     </script>
+<!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' }, 
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
 </body>
 </html>
