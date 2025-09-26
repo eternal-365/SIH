@@ -151,9 +151,10 @@ function checkRateLimit(studentId) {
 }
 
 // Authentication Routes
+// Enhanced Registration with Parent-Student linking
 app.post("/api/register", async (req, res) => {
   try {
-    const { email, password, name, userType, studentId, studentClass } = req.body;
+    const { email, password, name, userType, studentId, studentClass, linkStudentId } = req.body;
 
     if (!email || !password || !name || !userType) {
       return res.status(400).json({ 
@@ -192,8 +193,28 @@ app.post("/api/register", async (req, res) => {
       user.attendance = 0;
       user.rewardPoints = 0;
       user.remarks = "New student";
+      user.parents = []; // Array to store parent IDs
     } else if (userType === 'parent') {
-      user.children = [];
+      user.children = []; // Array to store student IDs
+      
+      // Link student if provided during registration
+      if (linkStudentId) {
+        // Verify student exists
+        const student = await db.collection("users").findOne({ 
+          studentId: linkStudentId, 
+          userType: 'student' 
+        });
+        
+        if (student) {
+          user.children.push(studentId);
+          
+          // Also add parent to student's parents array
+          await db.collection("users").updateOne(
+            { studentId: linkStudentId },
+            { $addToSet: { parents: email } }
+          );
+        }
+      }
     }
 
     // Insert user
@@ -221,7 +242,9 @@ app.post("/api/register", async (req, res) => {
         name: user.name,
         userType: user.userType,
         avatar: user.avatar,
-        studentClass: user.studentClass
+        studentClass: user.studentClass,
+        children: user.children || [],
+        parents: user.parents || []
       }
     });
 
@@ -286,6 +309,13 @@ app.post("/api/vocational/register", authenticateToken, async (req, res) => {
     console.error("Course registration error:", error);
     res.status(500).json({ error: "Internal server error", success: false });
   }
+});
+
+
+
+// Parent Dashboard route
+app.get("/parentDashboard.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "parentDashboard.html"));
 });
 
 // Get Student's Vocational Courses
@@ -483,6 +513,159 @@ app.put("/api/profile", authenticateToken, async (req, res) => {
   } catch (error) {
     console.error("Profile update error:", error);
     res.status(500).json({ error: "Internal server error", success: false });
+  }
+});
+
+
+// Link student to parent
+app.post("/api/parent/link-student", authenticateToken, async (req, res) => {
+  try {
+    const { studentId } = req.body;
+    
+    if (!studentId) {
+      return res.status(400).json({ 
+        error: "Student ID is required",
+        success: false
+      });
+    }
+
+    // Check if user is a parent
+    if (req.user.userType !== 'parent') {
+      return res.status(403).json({ 
+        error: "Only parents can link students",
+        success: false
+      });
+    }
+
+    // Verify student exists
+    const student = await db.collection("users").findOne({ 
+      studentId: studentId, 
+      userType: 'student' 
+    });
+    
+    if (!student) {
+      return res.status(404).json({ 
+        error: "Student not found",
+        success: false
+      });
+    }
+
+    // Check if already linked
+    const parent = await db.collection("users").findOne({ 
+      _id: new ObjectId(req.user.userId) 
+    });
+
+    if (parent.children && parent.children.includes(studentId)) {
+      return res.status(400).json({ 
+        error: "Student is already linked to this parent",
+        success: false
+      });
+    }
+
+    // Link student to parent
+    await db.collection("users").updateOne(
+      { _id: new ObjectId(req.user.userId) },
+      { $addToSet: { children: studentId } }
+    );
+
+    // Link parent to student
+    await db.collection("users").updateOne(
+      { studentId: studentId },
+      { $addToSet: { parents: req.user.email } }
+    );
+
+    res.json({
+      success: true,
+      message: "Student linked successfully"
+    });
+
+  } catch (error) {
+    console.error("Link student error:", error);
+    res.status(500).json({ error: "Internal server error", success: false });
+  }
+});
+
+// Get parent's linked students
+app.get("/api/parent/students", authenticateToken, async (req, res) => {
+  try {
+    if (req.user.userType !== 'parent') {
+      return res.status(403).json({ 
+        error: "Only parents can access this endpoint",
+        success: false
+      });
+    }
+
+    const parent = await db.collection("users").findOne(
+      { _id: new ObjectId(req.user.userId) },
+      { projection: { children: 1 } }
+    );
+
+    if (!parent || !parent.children || parent.children.length === 0) {
+      return res.json({
+        success: true,
+        students: []
+      });
+    }
+
+    // Get detailed student information
+    const students = await db.collection("users")
+      .find({ 
+        studentId: { $in: parent.children },
+        userType: 'student'
+      })
+      .project({ password: 0 }) // Exclude password
+      .toArray();
+
+    res.json({
+      success: true,
+      students: students
+    });
+
+  } catch (error) {
+    console.error("Get students error:", error);
+    res.status(500).json({ error: "Failed to fetch students", success: false });
+  }
+});
+
+// Get student's linked parents
+app.get("/api/student/parents", authenticateToken, async (req, res) => {
+  try {
+    if (req.user.userType !== 'student') {
+      return res.status(403).json({ 
+        error: "Only students can access this endpoint",
+        success: false
+      });
+    }
+
+    const student = await db.collection("users").findOne(
+      { _id: new ObjectId(req.user.userId) },
+      { projection: { parents: 1 } }
+    );
+
+    if (!student || !student.parents || student.parents.length === 0) {
+      return res.json({
+        success: true,
+        parents: []
+      });
+    }
+
+    // Get parent information
+    const parents = await db.collection("users")
+      .find({ 
+        email: { $in: student.parents },
+        userType: 'parent'
+      })
+      .project({ password: 0 })
+      .toArray();
+
+    res.json({
+      success: true,
+      parents: parents
+    });
+
+  } catch (error) {
+    console.error("Get parents error:", error);
+    res.status(500).json({ error: "Failed to fetch parents", success: false });
   }
 });
 
@@ -701,7 +884,6 @@ const PORT = process.env.PORT || 3000;
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📁 Serving files from: ${__dirname}`);
   });
 });
 
