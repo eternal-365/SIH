@@ -1,5 +1,6 @@
 import express from "express";
 import { ObjectId } from "mongodb";
+import dotenv from "dotenv";
 import OpenAI from "openai";
 
 const router = express.Router();
@@ -7,15 +8,15 @@ const router = express.Router();
 // AI client
 const openai = new OpenAI({
   baseURL: "https://router.huggingface.co/v1",
-  apiKey: "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"
+  apiKey: "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",
 });
 
-// Simple knowledge base
+// Simple knowledge base (fallbacks)
 const knowledgeBase = {
   math: "Focus on NCERT and RD Sharma. Practice daily problems and revise formulas regularly.",
   science: "NCERT diagrams are crucial. Conduct small experiments and understand concepts practically.",
   english: "Daily reading improves vocabulary. Practice writing essays and grammar exercises.",
-  general: "Maintain consistent study schedule. Take breaks every 45 minutes for better retention."
+  general: "Maintain consistent study schedule. Take breaks every 45 minutes for better retention.",
 };
 
 // Rate limit store
@@ -24,47 +25,41 @@ function checkRateLimit(studentId) {
   const now = Date.now();
   const windowStart = now - 60000;
   if (!rateLimit.has(studentId)) rateLimit.set(studentId, []);
-  const requests = rateLimit.get(studentId).filter(t => t > windowStart);
+  const requests = rateLimit.get(studentId).filter((t) => t > windowStart);
   rateLimit.set(studentId, requests);
   if (requests.length >= 10) return false;
   requests.push(now);
   return true;
 }
 
-export default function setupChatRoutes(app, db, authenticateToken) {
+export default function setupChatRoutes(app, db) {
   // Chat endpoint
-  app.post("/api/chat", authenticateToken, async (req, res) => {
+  app.post("/api/chat", async (req, res) => {
     try {
-      const { text, messageId } = req.body;
-      const studentId = req.user.userType === "student" ? req.user.userId : req.body.studentId;
+      const { text, messageId, studentId } = req.body;
 
       if (!text) {
         return res.status(400).json({ error: "Message text is required", success: false });
       }
-      if (req.user.userType === "parent" && !studentId) {
-        return res.status(400).json({ error: "Student ID required for parent accounts", success: false });
-      }
 
-      if (!checkRateLimit(studentId || req.user.userId)) {
+      // Use given studentId or fallback to "guest"
+      const sid = studentId || "guest";
+
+      if (!checkRateLimit(sid)) {
         return res.status(429).json({ error: "Too many requests. Try again later.", success: false });
-      }
-
-      const student = await db.collection("users").findOne({ _id: new ObjectId(studentId || req.user.userId) });
-      if (!student) {
-        return res.status(404).json({ error: "Student not found", success: false });
       }
 
       // Save user message
       const userMessage = {
-        studentId: student._id,
+        studentId: sid,
         messageId: messageId || new ObjectId().toString(),
         role: "user",
         content: text,
         timestamp: new Date(),
-        userType: req.user.userType,
       };
       await db.collection("chat_history").insertOne(userMessage);
 
+      // AI response
       const completion = await openai.chat.completions.create({
         model: "Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
         messages: [
@@ -78,7 +73,7 @@ export default function setupChatRoutes(app, db, authenticateToken) {
       const aiResponse = completion.choices[0].message.content;
 
       const botMessage = {
-        studentId: student._id,
+        studentId: sid,
         messageId: new ObjectId().toString(),
         role: "assistant",
         content: aiResponse,
@@ -93,17 +88,14 @@ export default function setupChatRoutes(app, db, authenticateToken) {
     }
   });
 
-  // Chat history
-  app.get("/api/chat/history/:studentId?", authenticateToken, async (req, res) => {
+  // Chat history endpoint
+  app.get("/api/chat/history/:studentId?", async (req, res) => {
     try {
-      let studentId = req.params.studentId;
-      if (req.user.userType === "student") studentId = req.user.userId;
-      if (!studentId) {
-        return res.status(400).json({ error: "Student ID required", success: false });
-      }
+      const sid = req.params.studentId || "guest";
 
-      const history = await db.collection("chat_history")
-        .find({ studentId: new ObjectId(studentId) })
+      const history = await db
+        .collection("chat_history")
+        .find({ studentId: sid })
         .sort({ timestamp: 1 })
         .limit(50)
         .toArray();

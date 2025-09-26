@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocational Skills Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* All the existing CSS remains exactly the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: all 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Horizontal Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-tab {
+            padding: 12px 25px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #7f8c8d;
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .nav-tab:hover:not(.active) {
+            background: #f8f9fa;
+            color: #3498db;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f0f3f5;
+            text-align: center;
+        }
+        
+        /* Horizontal Card Layouts */
+        .cards-horizontal {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 15px 5px;
+            margin: 30px 0;
+            scrollbar-width: thin;
+        }
+        
+        .cards-horizontal::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .cards-horizontal::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 10px;
+        }
+        
+        .card {
+            flex: 0 0 auto;
+            width: 320px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .card p {
+            color: #7f8c8d;
+            line-height: 1.7;
+        }
+        
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-box {
+            flex: 1;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefit-card h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        /* Encouragement Section */
+        .encouragement-section {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #2c3e50;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .encouragement-section::before {
+            /* content: """; */
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            font-size: 120px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: serif;
+        }
+        
+        .encouragement-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .encouragement-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .skill-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .skill-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .skill-card i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .skill-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #2ecc71;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Video Editing Specific Styles */
+        .videoediting-content .card-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .videoediting-content .card:nth-child(2) .card-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .videoediting-content .card:nth-child(3) .card-icon {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        .videoediting-content .card:nth-child(4) .card-icon {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+        
+        /* Learning Interface Styles */
+        .learning-interface {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            overflow-y: auto;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .learning-header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .learning-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        .close-learning {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .close-learning:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .learning-nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .learning-nav-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #6c757d;
+        }
+        
+        .learning-nav-item.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+            background: white;
+        }
+        
+        .learning-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .learning-tab-content {
+            display: none;
+        }
+        
+        .learning-tab-content.active {
+            display: block;
+        }
+        
+        /* Video Section Styles */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            height: 200px;
+            background: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+        
+        /* Reading Section Styles */
+        .reading-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .reading-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .reading-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .reading-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .reading-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .reading-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .read-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .read-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Roadmap Section Styles */
+        .roadmap-container {
+            margin-top: 30px;
+        }
+        
+        .roadmap {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #3498db;
+        }
+        
+        .roadmap-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .roadmap-icon {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 30px;
+            z-index: 1;
+        }
+        
+        .roadmap-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .roadmap-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .roadmap-content p {
+            color: #7f8c8d;
+        }
+        
+        .roadmap-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
+        .status-completed {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .status-current {
+            background: #3498db;
+            color: white;
+        }
+        
+        .status-upcoming {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        /* Practice Section Styles */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .practice-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .practice-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .practice-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .practice-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .practice-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .practice-template {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .start-practice {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .start-practice:hover {
+            background: #c0392b;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .stats-container {
+                flex-direction: column;
+            }
+            
+            .stat-box {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .nav-tab {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .cards-horizontal {
+                flex-direction: column;
+                overflow-x: visible;
+            }
+            
+            .card {
+                width: 100%;
+            }
+            
+            .skills-container {
+                flex-direction: column;
+            }
+            
+            .learning-nav {
+                flex-direction: column;
+            }
+            
+            .learning-nav-item {
+                text-align: center;
+                border-bottom: 1px solid #e9ecef;
+                border-left: 3px solid transparent;
+            }
+            
+            .learning-nav-item.active {
+                border-left: 3px solid #3498db;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .video-grid, .reading-grid, .practice-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap::before {
+                left: 25px;
+            }
+            
+            .roadmap-icon {
+                width: 50px;
+                height: 50px;
+                margin-right: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-section {
+                padding: 30px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .encouragement-section {
+                padding: 25px 15px;
+            }
+            
+            .encouragement-section h2 {
+                font-size: 1.7rem;
+            }
+            
+            .learning-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vocational Skills Training</h1>
+            <p>Practical Career Skills & Professional Development for Modern Job Markets</p>
+        </header>
+        
+        <!-- Horizontal Navigation Tabs -->
+        <div class="nav-container">
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-tab="welcome">Overview</div>
+                <div class="nav-tab" data-tab="videoediting">Video Editing</div>
+                <div class="nav-tab" data-tab="adcreation">Ad Creation</div>
+                <div class="nav-tab" data-tab="digitalmarketing">Digital Marketing</div>
+                <div class="nav-tab" data-tab="contentcreation">Content Creation</div>
+                <div class="nav-tab" data-tab="uiux">UI/UX Design</div>
+                <div class="nav-tab" data-tab="stocktrading">Stock Trading</div>
+            </div>
+        </div>
+        
+        <!-- Welcome/Overview Section -->
+        <section id="welcome" class="content-section active">
+            <h2 class="section-title">Practical Skills for Modern Careers</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What Are Vocational Skills?</h3>
+                        <p>Practical, hands-on abilities that prepare individuals for specific trades, crafts, or careers at various levels from craftsperson to technician.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Why They Matter Today</h3>
+                        <p>Vocational skills are in high demand, often leading to well-paying careers with faster entry into the workforce than traditional academic paths.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>High Demand Fields</h3>
+                        <p>Digital skills, creative professions, and technical trades show strong growth and offer excellent career opportunities.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Flexible Career Paths</h3>
+                        <p>Vocational skills allow for entrepreneurship, freelancing, and remote work opportunities beyond traditional employment.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-text">Vocational Graduates Find Relevant Work</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-text">Faster Entry Into Workforce</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$55K</div>
+                    <div class="stat-text">Average Starting Salary</div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Benefits of Vocational Training</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3><i class="fas fa-money-bill-wave"></i> Cost-Effective Education</h3>
+                    <p>Vocational training typically costs less than traditional four-year degrees while providing specific, marketable skills that employers value.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3><i class="fas fa-clock"></i> Faster Career Entry</h3>
+                    <p>Many vocational programs can be completed in months rather than years, allowing you to enter the workforce and start earning sooner.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3><i class="fas fa-hands-helping"></i> Hands-On Learning</h3>
+                    <p>Vocational education emphasizes practical skills and real-world application, preparing you for actual job responsibilities.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3><i class="fas fa-network-wired"></i> Industry Connections</h3>
+                    <p>Vocational programs often include internships and networking opportunities that can lead directly to job offers.</p>
+                </div>
+            </div>
+            
+            <!-- Encouragement Section -->
+            <div class="encouragement-section">
+                <h2>Your Path to Professional Success</h2>
+                <p>Vocational skills are not just alternatives to traditional education—they are direct pathways to rewarding careers in high-demand fields. By developing practical, marketable skills, you're positioning yourself for success in today's rapidly evolving job market. The hands-on training you receive will give you the confidence and competence to excel in your chosen field, whether you pursue employment, entrepreneurship, or freelance opportunities.</p>
+            </div>
+        </section>
+        
+        <!-- Video Editing Section -->
+        <section id="videoediting" class="content-section videoediting-content">
+            <h2 class="section-title">Video Editing</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is Video Editing?</h3>
+                        <p>The process of manipulating and arranging video shots to create a cohesive narrative, used in film, television, advertising, and online content.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Why It's Important</h3>
+                        <p>Video content dominates digital platforms. Skilled editors are essential for creating engaging content that captures audience attention.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Audio-Visual Integration</h3>
+                        <p>Combining visual elements with sound design, music, and effects to create emotionally impactful viewing experiences.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Special Effects & Transitions</h3>
+                        <p>Adding visual effects, color grading, and smooth transitions to enhance storytelling and visual appeal.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Essential Skills You'll Learn</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-swatchbook"></i>
+                    <h3>Color Grading</h3>
+                    <p>Adjusting colors to create mood, consistency, and visual appeal</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-wave-square"></i>
+                    <h3>Audio Editing</h3>
+                    <p>Cleaning, mixing, and enhancing audio for professional quality</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-bezier-curve"></i>
+                    <h3>Motion Graphics</h3>
+                    <p>Creating animated elements and visual effects</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-stream"></i>
+                    <h3>Workflow Efficiency</h3>
+                    <p>Organizing projects and using shortcuts for faster editing</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">22%</div>
+                    <div class="stat-text">Job Growth (2020-2030)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$67,250</div>
+                    <div class="stat-text">Average Salary (US)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">High</div>
+                    <div class="stat-text">Freelance Opportunities</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section with Start Learning Button -->
+            <div class="cta-section">
+                <h2>Start Your Video Editing Journey Today</h2>
+                <p>Learn to create professional videos with our comprehensive editing program. No prior experience required!</p>
+                <button class="cta-btn" id="startLearningBtnVideo">Start Learning Now</button>
+            </div>
+        </section>
+        
+        <!-- Ad Creation Section -->
+        <section id="adcreation" class="content-section">
+            <h2 class="section-title">Ad Creation</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-ad"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is Ad Creation?</h3>
+                        <p>The process of designing and producing advertisements that effectively communicate brand messages and persuade target audiences.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Target Audience Focus</h3>
+                        <p>Creating ads that resonate with specific demographic, psychographic, and behavioral segments.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Creative Design</h3>
+                        <p>Combining visual elements, copywriting, and strategic messaging to create compelling advertisements.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Performance Analytics</h3>
+                        <p>Measuring ad effectiveness and optimizing campaigns based on data-driven insights.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Key Skills You'll Develop</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-edit"></i>
+                    <h3>Copywriting</h3>
+                    <p>Crafting persuasive text that captures attention and drives action</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Visual Design</h3>
+                    <p>Creating eye-catching layouts and graphics that support the message</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Audience Research</h3>
+                    <p>Understanding target demographics and their motivations</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Platform Optimization</h3>
+                    <p>Tailoring ads for different channels (social media, search, display)</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">10%</div>
+                    <div class="stat-text">Job Growth (2020-2030)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$133,380</div>
+                    <div class="stat-text">Average Salary (Creative Directors)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$763 Billion</div>
+                    <div class="stat-text">Global Ad Spend (2023)</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section with Start Learning Button -->
+            <div class="cta-section">
+                <h2>Master the Art of Persuasion</h2>
+                <p>Learn to create compelling advertisements that drive results. Our ad creation program covers strategy, design, and analytics for modern marketing.</p>
+                <button class="cta-btn" id="startLearningBtnAd">Start Learning Now</button>
+            </div>
+        </section>
+        
+        <!-- Digital Marketing Section -->
+        <section id="digitalmarketing" class="content-section">
+            <h2 class="section-title">Digital Marketing</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is Digital Marketing?</h3>
+                        <p>Promoting products or services using digital channels to reach consumers, including SEO, social media, email, and mobile marketing.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Search Engine Optimization</h3>
+                        <p>Improving website visibility in organic search results to attract qualified traffic.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Social Media Marketing</h3>
+                        <p>Using social platforms to connect with audiences and build brand presence.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Email Marketing</h3>
+                        <p>Sending commercial messages to nurture leads and retain customers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Digital Marketing Skills You'll Master</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics</h3>
+                    <p>Measuring campaign performance and making data-driven decisions</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Automation</h3>
+                    <p>Using tools to streamline marketing processes and personalize experiences</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>PPC Advertising</h3>
+                    <p>Managing paid search and social media advertising campaigns</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Content Strategy</h3>
+                    <p>Planning and creating valuable content that attracts and engages audiences</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">10%</div>
+                    <div class="stat-text">Job Growth (2020-2030)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$141,490</div>
+                    <div class="stat-text">Average Salary (Marketing Managers)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$4.7 Trillion</div>
+                    <div class="stat-text">Global Digital Ad Spend (2023)</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section with Start Learning Button -->
+            <div class="cta-section">
+                <h2>Become a Digital Marketing Expert</h2>
+                <p>Master the strategies and tools needed to succeed in today's digital landscape. Our program covers all essential aspects of modern marketing.</p>
+                <button class="cta-btn" id="startLearningBtnDigital">Start Learning Now</button>
+            </div>
+        </section>
+        
+        <!-- Content Creation Section -->
+        <section id="contentcreation" class="content-section">
+            <h2 class="section-title">Content Creation</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is Content Creation?</h3>
+                        <p>Developing and sharing information through various media to attract, engage, and retain an audience.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-blog"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Blogging & Writing</h3>
+                        <p>Creating written content that informs, entertains, or persuades readers.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-podcast"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Audio Content</h3>
+                        <p>Producing podcasts, audiobooks, and other audio-based media.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Video Content</h3>
+                        <p>Creating engaging video material for platforms like YouTube, TikTok, and Instagram.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Content Creation Skills You'll Develop</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-search"></i>
+                    <h3>SEO Writing</h3>
+                    <p>Creating content that ranks well in search engines and drives organic traffic</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-camera"></i>
+                    <h3>Visual Storytelling</h3>
+                    <p>Using images and videos to convey messages and evoke emotions</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Audience Analytics</h3>
+                    <p>Understanding audience behavior and preferences to create relevant content</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Content Repurposing</h3>
+                    <p>Adapting content for different platforms and formats to maximize reach</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">12%</div>
+                    <div class="stat-text">Job Growth (2020-2030)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$73,080</div>
+                    <div class="stat-text">Average Salary (Content Strategists)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$412 Billion</div>
+                    <div class="stat-text">Content Marketing Industry (2023)</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section with Start Learning Button -->
+            <div class="cta-section">
+                <h2>Unleash Your Creative Potential</h2>
+                <p>Learn to create compelling content that engages audiences and builds brands. Our program covers writing, video, audio, and strategic content planning.</p>
+                <button class="cta-btn" id="startLearningBtnContent">Start Learning Now</button>
+            </div>
+        </section>
+        
+        <!-- UI/UX Design Section -->
+        <section id="uiux" class="content-section">
+            <h2 class="section-title">UI/UX Design</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is UI/UX Design?</h3>
+                        <p>Creating user-friendly interfaces (UI) and optimizing user experiences (UX) for digital products like websites and applications.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>User-Centered Design</h3>
+                        <p>Focusing on user needs, behaviors, and preferences throughout the design process.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Visual Design</h3>
+                        <p>Creating aesthetically pleasing interfaces with consistent branding and visual hierarchy.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Responsive Design</h3>
+                        <p>Ensuring interfaces work seamlessly across different devices and screen sizes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">UI/UX Skills You'll Acquire</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-map"></i>
+                    <h3>Wireframing</h3>
+                    <p>Creating basic layouts and structures for digital interfaces</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-cube"></i>
+                    <h3>Prototyping</h3>
+                    <p>Building interactive models to test and refine design concepts</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-search"></i>
+                    <h3>User Research</h3>
+                    <p>Conducting studies to understand user needs and behaviors</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Usability Testing</h3>
+                    <p>Evaluating designs with real users to identify improvements</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">13%</div>
+                    <div class="stat-text">Job Growth (2020-2030)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$87,883</div>
+                    <div class="stat-text">Average Salary (UI/UX Designers)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">ROI 9,900%</div>
+                    <div class="stat-text">Return on UX Investment</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section with Start Learning Button -->
+            <div class="cta-section">
+                <h2>Design Experiences That Delight Users</h2>
+                <p>Learn to create intuitive, beautiful digital products that users love. Our UI/UX program covers research, design, testing, and implementation.</p>
+                <button class="cta-btn" id="startLearningBtnUIUX">Start Learning Now</button>
+            </div>
+        </section>
+        
+        <!-- Stock Trading Section -->
+        <section id="stocktrading" class="content-section">
+            <h2 class="section-title">Stock Trading</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is Stock Trading?</h3>
+                        <p>Buying and selling shares of publicly traded companies to generate profits from price movements.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-analytics"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Technical Analysis</h3>
+                        <p>Analyzing price charts and market data to identify trading opportunities.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fundamental Analysis</h3>
+                        <p>Evaluating company financials and industry conditions to assess investment value.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Risk Management</h3>
+                        <p>Implementing strategies to protect capital and minimize losses.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Trading Skills You'll Master</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Market Analysis</h3>
+                    <p>Interpreting charts, indicators, and economic data to make informed decisions</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Psychology</h3>
+                    <p>Managing emotions and maintaining discipline in volatile markets</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Strategy Development</h3>
+                    <p>Creating systematic approaches to entering and exiting trades</p>
+                </div>
+                
+                <div class="skill-card">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>Portfolio Management</h3>
+                    <p>Diversifying investments and managing position sizes for optimal returns</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">$95 Trillion</div>
+                    <div class="stat-text">Global Stock Market Value (2023)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">4.24 Billion</div>
+                    <div class="stat-text">Online Trading Accounts Worldwide</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$101,780</div>
+                    <div class="stat-text">Average Salary (Financial Analysts)</div>
+                </div>
+            </div>
+            
+            <!-- CTA Section with Start Learning Button -->
+            <div class="cta-section">
+                <h2>Master the Financial Markets</h2>
+                <p>Learn to trade stocks confidently with our comprehensive program covering analysis, strategy, and risk management. Start building your financial future today.</p>
+                <button class="cta-btn" id="startLearningBtnTrading">Start Learning Now</button>
+            </div>
+        </section>
+        
+        <!-- Learning Interface (Initially Hidden) -->
+        <div class="learning-interface" id="learningInterface">
+            <div class="learning-header">
+                <h2 id="learningTitle">Learning Path</h2>
+                <button class="close-learning" id="closeLearning">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="learning-nav">
+                <div class="learning-nav-item active" data-tab="videos">Videos</div>
+                <div class="learning-nav-item" data-tab="reading">Reading</div>
+                <div class="learning-nav-item" data-tab="roadmap">Roadmap</div>
+                <div class="learning-nav-item" data-tab="practice">Practice</div>
+            </div>
+            
+            <div class="learning-content">
+                <!-- Videos Tab -->
+                <div class="learning-tab-content active" id="videos-tab">
+                    <h2 class="section-title">Video Tutorials</h2>
+                    <p id="videos-description">Watch these tutorials to learn concepts visually.</p>
+                    
+                    <div class="video-grid" id="videos-container">
+                        <!-- Videos will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Reading Tab -->
+                <div class="learning-tab-content" id="reading-tab">
+                    <h2 class="section-title">Reading Materials</h2>
+                    <p id="reading-description">Deepen your understanding with these comprehensive reading resources.</p>
+                    
+                    <div class="reading-grid" id="reading-container">
+                        <!-- Reading materials will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Roadmap Tab -->
+                <div class="learning-tab-content" id="roadmap-tab">
+                    <h2 class="section-title">Learning Roadmap</h2>
+                    <p id="roadmap-description">Follow this structured path to master the topic step by step.</p>
+                    
+                    <div class="roadmap-container">
+                        <div class="roadmap" id="roadmap-container">
+                            <!-- Roadmap items will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Practice Tab -->
+                <div class="learning-tab-content" id="practice-tab">
+                    <h2 class="section-title">Practice Exercises</h2>
+                    <p id="practice-description">Apply what you've learned with these hands-on exercises and challenges.</p>
+                    
+                    <div class="practice-grid" id="practice-container">
+                        <!-- Practice exercises will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.content-section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show the corresponding section
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Learning interface functionality
+            const learningInterface = document.getElementById('learningInterface');
+            const closeLearningBtn = document.getElementById('closeLearning');
+            const learningNavItems = document.querySelectorAll('.learning-nav-item');
+            const learningTabContents = document.querySelectorAll('.learning-tab-content');
+            const learningTitle = document.getElementById('learningTitle');
+            
+            // Learning content data for each topic
+            const learningContent = {
+                videoediting: {
+                    title: "Video Editing Learning Path",
+                    videos: {
+                        description: "Watch these tutorials to learn video editing concepts visually.",
+                        items: [
+                            {
+                                title: "Video Editing Basics: Getting Started",
+                                description: "Learn the fundamentals of video editing software and workflow.",
+                                duration: "45 min",
+                                level: "Beginner",
+                                link: "https://youtu.be/Y0izFme1AwI?si=dbIGx_FLgdqImhWb"
+                            },
+                            {
+                                title: "Advanced Editing Techniques",
+                                description: "Discover professional editing techniques for seamless transitions and effects.",
+                                duration: "60 min",
+                                level: "Intermediate",
+                                link: "https://youtu.be/sLgHqZSe2o0?si=DCaS2IDH1Zx7wlxx"
+                            },
+                            {
+                                title: "Color Grading Masterclass",
+                                description: "Learn how to create cinematic looks through professional color grading.",
+                                duration: "75 min",
+                                level: "Advanced",
+                                link: "https://youtu.be/1xGmL_NfJBE?si=6TcM6LRKr5Crujp1"
+                            },
+                            {
+                                title: "Audio Editing for Video",
+                                description: "Master audio cleanup, mixing, and sound design for your videos.",
+                                duration: "55 min",
+                                level: "Intermediate",
+                                link: "https://youtu.be/PkcW3POORnU?si=hVEHmjZdtvutyP1m"
+                            }
+                        ]
+                    },
+                    reading: {
+                        description: "Deepen your understanding with these comprehensive reading resources.",
+                        items: [
+                            {
+                                title: "Video Editing Software Guide",
+                                description: "Comparison of popular editing software and their features.",
+                                icon: "file-pdf",
+                                link: "https://www.openshot.org/static/files/user-guide/getting_started.html"
+                            },
+                            {
+                                title: "Editing Workflow Optimization",
+                                description: "Tips for organizing projects and streamlining your editing process.",
+                                icon: "file-pdf",
+                                link: "https://www.videomaker.com/how-to/editing/workflow/"
+                            },
+                            {
+                                title: "Color Theory for Editors",
+                                description: "Understanding color psychology and application in video editing.",
+                                icon: "book",
+                                link: "https://www.interaction-design.org/literature/topics/color-theory?srsltid=AfmBOopO1RHncPzfB2iM174KvC6pvOX3gjU7oAP9zqo5sGGxyzRDDMgL"
+                            },
+                            {
+                                title: "Export Settings Guide",
+                                description: "Optimal export settings for different platforms and purposes.",
+                                icon: "book",
+                                link: "https://www.premiumbeat.com/blog/ultimate-guide-to-export-settings/"
+                            }
+                        ]
+                    },
+                    roadmap: {
+                        description: "Follow this structured path to master video editing step by step.",
+                        items: [
+                            {
+                                title: "Week 1-2: Software Fundamentals",
+                                description: "Learn the interface, tools, and basic editing techniques in your chosen software.",
+                                icon: "desktop",
+                                status: "completed"
+                            },
+                            {
+                                title: "Week 3-4: Advanced Editing",
+                                description: "Master transitions, effects, and multi-track editing for professional results.",
+                                icon: "cut",
+                                status: "current"
+                            },
+                            {
+                                title: "Week 5-6: Color & Audio",
+                                description: "Develop skills in color grading and professional audio editing.",
+                                icon: "palette",
+                                status: "upcoming"
+                            },
+                            {
+                                title: "Week 7-8: Portfolio Projects",
+                                description: "Create a portfolio of work showcasing your editing skills.",
+                                icon: "film",
+                                status: "upcoming"
+                            }
+                        ]
+                    },
+                    practice: {
+                        description: "Apply what you've learned with these hands-on exercises and challenges.",
+                        items: [
+                            {
+                                title: "Basic Cut Exercise",
+                                description: "Edit raw footage into a coherent 1-minute sequence with clean cuts.",
+                                icon: "cut",
+                                template: `Requirements:<br>- Clean cuts on action<br>- Proper pacing<br>- Logical sequence`,
+                                link: "https://www.youtube.com/watch?v=OB5f5q3bU-M"
+                            },
+                            {
+                                title: "Transition Challenge",
+                                description: "Create a 30-second video using at least 5 different transition types.",
+                                icon: "exchange-alt",
+                                template: `Transition types to include:<br>- Cut<br>- Fade<br>- Wipe<br>- Dissolve<br>- Zoom`,
+                                link: "https://www.youtube.com/watch?v=4nA9-8C2H-U"
+                            },
+                            {
+                                title: "Color Grading Project",
+                                description: "Apply color correction and grading to match a reference image.",
+                                icon: "fill-drip",
+                                template: `Steps:<br>- Balance exposure<br>- Correct color cast<br>- Apply creative look<br>- Match reference`,
+                                link: "https://www.youtube.com/watch?v=HtQo2CvC_jA"
+                            },
+                            {
+                                title: "Audio Mixing Exercise",
+                                description: "Balance dialogue, music, and sound effects in a short scene.",
+                                icon: "volume-up",
+                                template: `Audio elements to balance:<br>- Dialogue clarity<br>- Background music<br>- Sound effects<br>- Room tone`,
+                                link: "https://www.youtube.com/watch?v=Q5S1djf1_4Y"
+                            }
+                        ]
+                    }
+                },
+                adcreation: {
+                    title: "Ad Creation Learning Path",
+                    videos: {
+                        description: "Watch these tutorials to learn ad creation concepts and techniques.",
+                        items: [
+                            {
+                                title: "Advertising Fundamentals",
+                                description: "Understanding the principles of effective advertising and persuasion.",
+                                duration: "40 min",
+                                level: "Beginner",
+                                link: "https://youtu.be/owMvu6ks29E?si=vm5aGCc3AedwDgSx"
+                            },
+                            {
+                                title: "Copywriting for Ads",
+                                description: "Crafting compelling headlines and persuasive ad copy.",
+                                duration: "55 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=3y0aR2t2GdE"
+                            },
+                            {
+                                title: "Visual Design Principles",
+                                description: "Creating eye-catching ad designs that communicate effectively.",
+                                duration: "50 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=a5KYlHNKQB8"
+                            },
+                            {
+                                title: "Campaign Strategy",
+                                description: "Developing comprehensive ad campaigns across multiple channels.",
+                                duration: "65 min",
+                                level: "Advanced",
+                                link: "https://www.youtube.com/watch?v=GZQzTQ4kWGM"
+                            }
+                        ]
+                    },
+                    reading: {
+                        description: "Deepen your understanding with these comprehensive reading resources on ad creation.",
+                        items: [
+                            {
+                                title: "Psychology of Persuasion",
+                                description: "Understanding how psychological principles influence advertising effectiveness.",
+                                icon: "file-pdf",
+                                link: "https://ia800203.us.archive.org/33/items/ThePsychologyOfPersuasion/The%20Psychology%20of%20Persuasion.pdf"
+                            },
+                            {
+                                title: "Visual Hierarchy Guide",
+                                description: "Principles for arranging visual elements to guide viewer attention.",
+                                icon: "file-pdf",
+                                link: "https://www.canva.com/learn/visual-hierarchy/"
+                            },
+                            {
+                                title: "Advertising Regulations",
+                                description: "Understanding legal and ethical considerations in advertising.",
+                                icon: "book",
+                                link: "https://www.ftc.gov/tips-advice/business-center/advertising-and-marketing"
+                            },
+                            {
+                                title: "Campaign Measurement",
+                                description: "Methods for tracking and analyzing ad campaign performance.",
+                                icon: "book",
+                                link: "https://blog.hubspot.com/marketing/how-to-measure-effectiveness-of-ad-campaign"
+                            }
+                        ]
+                    },
+                    roadmap: {
+                        description: "Follow this structured path to master ad creation step by step.",
+                        items: [
+                            {
+                                title: "Week 1-2: Advertising Principles",
+                                description: "Learn fundamental concepts of persuasion, targeting, and messaging.",
+                                icon: "bullhorn",
+                                status: "completed"
+                            },
+                            {
+                                title: "Week 3-4: Creative Development",
+                                description: "Develop skills in copywriting, visual design, and concept creation.",
+                                icon: "lightbulb",
+                                status: "current"
+                            },
+                            {
+                                title: "Week 5-6: Multi-Channel Strategy",
+                                description: "Learn to create cohesive campaigns across different advertising platforms.",
+                                icon: "project-diagram",
+                                status: "upcoming"
+                            },
+                            {
+                                title: "Week 7-8: Campaign Management",
+                                description: "Master budgeting, scheduling, and performance optimization.",
+                                icon: "chart-line",
+                                status: "upcoming"
+                            }
+                        ]
+                    },
+                    practice: {
+                        description: "Apply what you've learned with these practical ad creation exercises.",
+                        items: [
+                            {
+                                title: "Print Ad Design",
+                                description: "Create a full-page magazine ad for a product of your choice.",
+                                icon: "newspaper",
+                                template: `Elements to include:<br>- Compelling headline<br>- Persuasive body copy<br>- Strong visual<br>- Clear call-to-action<br>- Brand identity`,
+                                link: "https://www.canva.com/create/magazine-ads/"
+                            },
+                            {
+                                title: "Social Media Ad Series",
+                                description: "Develop a series of 3 social media ads for the same product.",
+                                icon: "hashtag",
+                                template: `Considerations:<br>- Platform-specific formats<br>- Consistent branding<br>- Varied messaging approaches<br>- Clear objectives for each ad`,
+                                link: "https://blog.hootsuite.com/social-media-advertising/"
+                            },
+                            {
+                                title: "Video Storyboard",
+                                description: "Create a storyboard for a 30-second television commercial.",
+                                icon: "video",
+                                template: `Storyboard components:<br>- Visual frames<br>- Audio descriptions<br>- Camera directions<br>- Timing notations`,
+                                link: "https://www.studiobinder.com/blog/how-to-make-a-storyboard/"
+                            },
+                            {
+                                title: "Campaign Brief",
+                                description: "Write a comprehensive brief for an advertising campaign.",
+                                icon: "file-alt",
+                                template: `Brief sections:<br>- Background/context<br>- Target audience<br>- Objectives<br>- Key message<br>- Budget/timeline<br>- Success metrics`,
+                                link: "https://www.smartinsights.com/digital-marketing-strategy/campaign-planning-brief-template/"
+                            }
+                        ]
+                    }
+                },
+                digitalmarketing: {
+                    title: "Digital Marketing Learning Path",
+                    videos: {
+                        description: "Watch these tutorials to learn digital marketing strategies and techniques.",
+                        items: [
+                            {
+                                title: "Digital Marketing Overview",
+                                description: "Introduction to the various channels and strategies in digital marketing.",
+                                duration: "45 min",
+                                level: "Beginner",
+                                link: "https://www.youtube.com/watch?v=BZLUEKnMfIY"
+                            },
+                            {
+                                title: "SEO Fundamentals",
+                                description: "Learn how to optimize websites for search engine visibility.",
+                                duration: "60 min",
+                                level: "Intermediate",
+                                link: "https://youtu.be/xsVTqzratPs?si=6RbFzX8wAyPL_GDz"
+                            },
+                            {
+                                title: "Social Media Marketing",
+                                description: "Strategies for building presence and engagement on social platforms.",
+                                duration: "55 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=ueA-Oo4jCg4"
+                            },
+                            {
+                                title: "Google Analytics Mastery",
+                                description: "Understanding and interpreting website traffic data.",
+                                duration: "70 min",
+                                level: "Advanced",
+                                link: "https://www.youtube.com/watch?v=1Uw1-sJFL_8"
+                            }
+                        ]
+                    },
+                    reading: {
+                        description: "Deepen your understanding with these comprehensive reading resources on digital marketing.",
+                        items: [
+                            {
+                                title: "SEO Best Practices Guide",
+                                description: "Comprehensive guide to on-page and off-page SEO techniques.",
+                                icon: "file-pdf",
+                                link: "https://moz.com/beginners-guide-to-seo"
+                            },
+                            {
+                                title: "Social Media Strategy",
+                                description: "Developing effective strategies for different social platforms.",
+                                icon: "file-pdf",
+                                link: "https://blog.hootsuite.com/social-media-marketing-strategy/"
+                            },
+                            {
+                                title: "Email Marketing Handbook",
+                                description: "Best practices for building lists and creating effective emails.",
+                                icon: "book",
+                                link: "https://mailchimp.com/resources/email-marketing-guide/"
+                            },
+                            {
+                                title: "Content Marketing Guide",
+                                description: "Creating valuable content that attracts and engages audiences.",
+                                icon: "book",
+                                link: "https://contentmarketinginstitute.com/learning/content-marketing-strategy/"
+                            }
+                        ]
+                    },
+                    roadmap: {
+                        description: "Follow this structured path to master digital marketing step by step.",
+                        items: [
+                            {
+                                title: "Week 1-2: Digital Marketing Foundations",
+                                description: "Understand the digital marketing landscape and key channels.",
+                                icon: "globe",
+                                status: "completed"
+                            },
+                            {
+                                title: "Week 3-4: Content & SEO",
+                                description: "Learn content creation and search engine optimization strategies.",
+                                icon: "search",
+                                status: "current"
+                            },
+                            {
+                                title: "Week 5-6: Social Media & Advertising",
+                                description: "Master social media marketing and paid advertising campaigns.",
+                                icon: "share-alt",
+                                status: "upcoming"
+                            },
+                            {
+                                title: "Week 7-8: Analytics & Optimization",
+                                description: "Learn to measure performance and optimize marketing efforts.",
+                                icon: "chart-bar",
+                                status: "upcoming"
+                            }
+                        ]
+                    },
+                    practice: {
+                        description: "Apply what you've learned with these practical digital marketing exercises.",
+                        items: [
+                            {
+                                title: "SEO Audit",
+                                description: "Conduct a comprehensive SEO audit of a website.",
+                                icon: "search",
+                                template: `Audit components:<br>- Technical SEO issues<br>- On-page optimization<br>- Content quality assessment<br>- Backlink profile analysis`,
+                                link: "https://moz.com/blog/how-to-do-a-technical-seo-audit"
+                            },
+                            {
+                                title: "Social Media Calendar",
+                                description: "Create a one-month content calendar for a social media platform.",
+                                icon: "calendar",
+                                template: `Calendar elements:<br>- Daily post topics<br>- Content formats<br>- Posting times<br>- Engagement strategies`,
+                                link: "https://blog.hootsuite.com/how-to-create-a-social-media-content-calendar/"
+                            },
+                            {
+                                title: "Email Campaign",
+                                description: "Design a 3-email sequence for a product launch.",
+                                icon: "envelope",
+                                template: `Email sequence structure:<br>- Awareness/teaser email<br>- Launch announcement<br>- Follow-up/offer email`,
+                                link: "https://mailchimp.com/help/create-an-email-campaign/"
+                            },
+                            {
+                                title: "PPC Campaign Setup",
+                                description: "Create a mock Google Ads campaign with targeting and budget.",
+                                icon: "dollar-sign",
+                                template: `Campaign elements:<br>- Keyword research<br>- Ad copy creation<br>- Landing page strategy<br>- Budget allocation`,
+                                link: "https://support.google.com/google-ads/answer/6366721?hl=en"
+                            }
+                        ]
+                    }
+                },
+                contentcreation: {
+                    title: "Content Creation Learning Path",
+                    videos: {
+                        description: "Watch these tutorials to learn content creation strategies and techniques.",
+                        items: [
+                            {
+                                title: "Content Strategy Fundamentals",
+                                description: "Planning and developing a comprehensive content strategy.",
+                                duration: "40 min",
+                                level: "Beginner",
+                                link: "https://youtu.be/XdIfwP1ytsI?si=vGINOD9ixw-3T36D"
+                            },
+                            {
+                                title: "Blog Writing Mastery",
+                                description: "Creating engaging blog content that ranks and converts.",
+                                duration: "55 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=MRd0kFcfQnw"
+                            },
+                            {
+                                title: "Video Content Production",
+                                description: "Planning, shooting, and editing effective video content.",
+                                duration: "60 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=G0lR7W6JmzA"
+                            },
+                            {
+                                title: "Content Promotion Strategies",
+                                description: "Methods for amplifying content reach and engagement.",
+                                duration: "50 min",
+                                level: "Advanced",
+                                link: "https://www.youtube.com/watch?v=wJkHhJM7WkE"
+                            }
+                        ]
+                    },
+                    reading: {
+                        description: "Deepen your understanding with these comprehensive reading resources on content creation.",
+                        items: [
+                            {
+                                title: "Content Strategy Framework",
+                                description: "Step-by-step framework for developing a content strategy.",
+                                icon: "file-pdf",
+                                link: "https://contentmarketinginstitute.com/learning/content-strategy-resources/"
+                            },
+                            {
+                                title: "SEO Writing Guide",
+                                description: "Techniques for writing content that ranks well in search engines.",
+                                icon: "file-pdf",
+                                link: "https://www.seowriter.com/resources/seo-writing-guide/"
+                            },
+                            {
+                                title: "Visual Content Best Practices",
+                                description: "Creating effective images, infographics, and visual assets.",
+                                icon: "book",
+                                link: "https://www.canva.com/learn/visual-content-strategy/"
+                            },
+                            {
+                                title: "Content Repurposing Guide",
+                                description: "Strategies for extending content lifespan and reach.",
+                                icon: "book",
+                                link: "https://coschedule.com/blog/content-repurposing"
+                            }
+                        ]
+                    },
+                    roadmap: {
+                        description: "Follow this structured path to master content creation step by step.",
+                        items: [
+                            {
+                                title: "Week 1-2: Content Strategy",
+                                description: "Learn to plan content that aligns with business goals and audience needs.",
+                                icon: "map",
+                                status: "completed"
+                            },
+                            {
+                                title: "Week 3-4: Written Content",
+                                description: "Develop skills in blog writing, copywriting, and SEO optimization.",
+                                icon: "pen",
+                                status: "current"
+                            },
+                            {
+                                title: "Week 5-6: Visual & Video Content",
+                                description: "Master creating engaging visual and video content.",
+                                icon: "video",
+                                status: "upcoming"
+                            },
+                            {
+                                title: "Week 7-8: Content Promotion",
+                                description: "Learn strategies for distributing and promoting content effectively.",
+                                icon: "share",
+                                status: "upcoming"
+                            }
+                        ]
+                    },
+                    practice: {
+                        description: "Apply what you've learned with these practical content creation exercises.",
+                        items: [
+                            {
+                                title: "Content Calendar",
+                                description: "Create a 30-day content calendar for a specific niche.",
+                                icon: "calendar",
+                                template: `Calendar elements:<br>- Content topics<br>- Formats (blog, video, social)<br>- Publication dates<br>- Promotion plans`,
+                                link: "https://coschedule.com/content-calendar-template"
+                            },
+                            {
+                                title: "Blog Post Creation",
+                                description: "Write and optimize a 1000-word blog post on a chosen topic.",
+                                icon: "blog",
+                                template: `Post requirements:<br>- SEO-optimized title and meta description<br>- Proper heading structure<br>- Engaging introduction<br>- Valuable content with examples<br>- Clear conclusion with call-to-action`,
+                                link: "https://www.hubspot.com/blog-topic-generator"
+                            },
+                            {
+                                title: "Video Script Writing",
+                                description: "Write a script for a 3-minute explainer video.",
+                                icon: "file-alt",
+                                template: `Script components:<br>- Hook/introduction<br>- Problem statement<br>- Solution explanation<br>- Call-to-action<br>- Visual directions`,
+                                link: "https://www.videomaker.com/how-to/planning/scriptwriting/how-to-write-a-video-script/"
+                            },
+                            {
+                                title: "Content Repurposing Exercise",
+                                description: "Repurpose a blog post into 3 different content formats.",
+                                icon: "sync-alt",
+                                template: `Repurposing options:<br>- Social media posts<br>- Infographic<br>- Video summary<br>- Podcast episode<br>- Email newsletter`,
+                                link: "https://coschedule.com/blog/content-repurposing"
+                            }
+                        ]
+                    }
+                },
+                uiux: {
+                    title: "UI/UX Design Learning Path",
+                    videos: {
+                        description: "Watch these tutorials to learn UI/UX design principles and techniques.",
+                        items: [
+                            {
+                                title: "UX Design Fundamentals",
+                                description: "Understanding user-centered design principles and processes.",
+                                duration: "45 min",
+                                level: "Beginner",
+                                link: "https://www.youtube.com/watch?v=Ovj4hFxko7c"
+                            },
+                            {
+                                title: "UI Design Principles",
+                                description: "Creating visually appealing and functional user interfaces.",
+                                duration: "55 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=ZK93WKhcG8s"
+                            },
+                            {
+                                title: "Wireframing & Prototyping",
+                                description: "Techniques for creating low and high-fidelity prototypes.",
+                                duration: "60 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=qpH7-KFWZRI"
+                            },
+                            {
+                                title: "Usability Testing Methods",
+                                description: "Conducting effective tests to improve product usability.",
+                                duration: "50 min",
+                                level: "Advanced",
+                                link: "https://www.youtube.com/watch?v=0S0WaLf9WFY"
+                            }
+                        ]
+                    },
+                    reading: {
+                        description: "Deepen your understanding with these comprehensive reading resources on UI/UX design.",
+                        items: [
+                            {
+                                title: "Design Thinking Process",
+                                description: "Step-by-step guide to the design thinking methodology.",
+                                icon: "file-pdf",
+                                link: "https://www.interaction-design.org/literature/article/5-stages-in-the-design-thinking-process"
+                            },
+                            {
+                                title: "UI Design Patterns",
+                                description: "Common interface patterns and when to use them.",
+                                icon: "file-pdf",
+                                link: "https://ui-patterns.com/patterns"
+                            },
+                            {
+                                title: "Accessibility Guidelines",
+                                description: "Creating inclusive designs that work for all users.",
+                                icon: "book",
+                                link: "https://www.w3.org/WAI/standards-guidelines/wcag/"
+                            },
+                            {
+                                title: "Mobile Design Best Practices",
+                                description: "Optimizing interfaces for mobile devices and touch interactions.",
+                                icon: "book",
+                                link: "https://www.smashingmagazine.com/mobile-design-best-practices/"
+                            }
+                        ]
+                    },
+                    roadmap: {
+                        description: "Follow this structured path to master UI/UX design step by step.",
+                        items: [
+                            {
+                                title: "Week 1-2: UX Research",
+                                description: "Learn user research methods and how to synthesize findings.",
+                                icon: "search",
+                                status: "completed"
+                            },
+                            {
+                                title: "Week 3-4: Information Architecture",
+                                description: "Structure content and flows for optimal user experience.",
+                                icon: "sitemap",
+                                status: "current"
+                            },
+                            {
+                                title: "Week 5-6: Visual Design",
+                                description: "Master UI principles, typography, color, and layout.",
+                                icon: "palette",
+                                status: "upcoming"
+                            },
+                            {
+                                title: "Week 7-8: Prototyping & Testing",
+                                description: "Create interactive prototypes and conduct usability tests.",
+                                icon: "mouse-pointer",
+                                status: "upcoming"
+                            }
+                        ]
+                    },
+                    practice: {
+                        description: "Apply what you've learned with these practical UI/UX design exercises.",
+                        items: [
+                            {
+                                title: "User Persona Creation",
+                                description: "Create detailed user personas based on research data.",
+                                icon: "user",
+                                template: `Persona components:<br>- Demographic information<br>- Goals and motivations<br>- Pain points and frustrations<br>- Behavior patterns`,
+                                link: "https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them"
+                            },
+                            {
+                                title: "Wireframing Exercise",
+                                description: "Create wireframes for a mobile app with 3 key screens.",
+                                icon: "vector-square",
+                                template: `Screens to wireframe:<br>- Login/onboarding<br>- Main dashboard<br>- Detailed content view`,
+                                link: "https://www.uxpin.com/studio/blog/wireframing-beginners-guide/"
+                            },
+                            {
+                                title: "Usability Test Plan",
+                                description: "Design a usability test for an existing website or app.",
+                                icon: "clipboard-check",
+                                template: `Test plan elements:<br>- Research questions<br>- Participant criteria<br>- Task scenarios<br>- Success metrics`,
+                                link: "https://www.nngroup.com/articles/usability-testing-101/"
+                            },
+                            {
+                                title: "Design System Components",
+                                description: "Create a basic design system with reusable UI components.",
+                                icon: "cubes",
+                                template: `Components to include:<br>- Color palette<br>- Typography scale<br>- Button styles<br>- Form elements<br>- Icon library`,
+                                link: "https://www.invisionapp.com/inside-design/guide-to-design-systems/"
+                            }
+                        ]
+                    }
+                },
+                stocktrading: {
+                    title: "Stock Trading Learning Path",
+                    videos: {
+                        description: "Watch these tutorials to learn stock trading strategies and techniques.",
+                        items: [
+                            {
+                                title: "Stock Market Basics",
+                                description: "Understanding how the stock market works and key terminology.",
+                                duration: "50 min",
+                                level: "Beginner",
+                                link: "https://www.youtube.com/watch?v=p7HKvqRI_Bo"
+                            },
+                            {
+                                title: "Technical Analysis Fundamentals",
+                                description: "Reading charts and using indicators to identify trading opportunities.",
+                                duration: "65 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=6c5Wt6gqw-U"
+                            },
+                            {
+                                title: "Risk Management Strategies",
+                                description: "Protecting your capital with proper position sizing and stop losses.",
+                                duration: "55 min",
+                                level: "Intermediate",
+                                link: "https://www.youtube.com/watch?v=9C6t3Wf6r1I"
+                            },
+                            {
+                                title: "Trading Psychology",
+                                description: "Managing emotions and developing discipline for consistent trading.",
+                                duration: "45 min",
+                                level: "Advanced",
+                                link: "https://www.youtube.com/watch?v=HCgJNp3t2r8"
+                            }
+                        ]
+                    },
+                    reading: {
+                        description: "Deepen your understanding with these comprehensive reading resources on stock trading.",
+                        items: [
+                            {
+                                title: "Market Order Types Guide",
+                                description: "Understanding different order types and when to use them.",
+                                icon: "file-pdf",
+                                link: "https://www.investopedia.com/articles/active-trading/100814/understanding-different-order-types.asp"
+                            },
+                            {
+                                title: "Technical Analysis Handbook",
+                                description: "Comprehensive guide to chart patterns and technical indicators.",
+                                icon: "file-pdf",
+                                link: "https://www.investopedia.com/technical-analysis-4689657"
+                            },
+                            {
+                                title: "Fundamental Analysis Principles",
+                                description: "Evaluating companies based on financial statements and metrics.",
+                                icon: "book",
+                                link: "https://www.investopedia.com/terms/f/fundamentalanalysis.asp"
+                            },
+                            {
+                                title: "Trading Journal Template",
+                                description: "Tracking and analyzing your trades for continuous improvement.",
+                                icon: "book",
+                                link: "https://www.investopedia.com/articles/active-trading/101014/why-you-should-keep-trading-journal.asp"
+                            }
+                        ]
+                    },
+                    roadmap: {
+                        description: "Follow this structured path to master stock trading step by step.",
+                        items: [
+                            {
+                                title: "Week 1-2: Market Fundamentals",
+                                description: "Learn how markets work, order types, and basic terminology.",
+                                icon: "university",
+                                status: "completed"
+                            },
+                            {
+                                title: "Week 3-4: Technical Analysis",
+                                description: "Master chart reading, patterns, and technical indicators.",
+                                icon: "chart-line",
+                                status: "current"
+                            },
+                            {
+                                title: "Week 5-6: Trading Strategies",
+                                description: "Develop and backtest specific trading approaches.",
+                                icon: "chess",
+                                status: "upcoming"
+                            },
+                            {
+                                title: "Week 7-8: Risk Management",
+                                description: "Implement proper position sizing and risk control measures.",
+                                icon: "shield-alt",
+                                status: "upcoming"
+                            }
+                        ]
+                    },
+                    practice: {
+                        description: "Apply what you've learned with these practical stock trading exercises.",
+                        items: [
+                            {
+                                title: "Paper Trading Setup",
+                                description: "Set up a paper trading account and practice without risk.",
+                                icon: "file-invoice-dollar",
+                                template: `Paper trading steps:<br>- Choose a platform<br>- Set starting capital<br>- Develop a trading plan<br>- Track all trades`,
+                                link: "https://www.investopedia.com/articles/trading/05/paperpractice.asp"
+                            },
+                            {
+                                title: "Technical Analysis Exercise",
+                                description: "Analyze charts and identify potential trade setups.",
+                                icon: "chart-bar",
+                                template: `Analysis components:<br>- Trend identification<br>- Support/resistance levels<br>- Chart patterns<br>- Indicator signals`,
+                                link: "https://www.investopedia.com/technical-analysis-4689657"
+                            },
+                            {
+                                title: "Risk Management Plan",
+                                description: "Create a comprehensive risk management strategy.",
+                                icon: "calculator",
+                                template: `Risk management elements:<br>- Maximum risk per trade<br>- Position sizing formula<br>- Stop-loss placement<br>- Portfolio diversification`,
+                                link: "https://www.investopedia.com/articles/trading/09/risk-management.asp"
+                            },
+                            {
+                                title: "Trading Journal Entry",
+                                description: "Document and analyze a completed trade.",
+                                icon: "book",
+                                template: `Journal entry components:<br>- Trade rationale<br>- Entry/exit points<br>- Position size<br>- Outcome analysis<br>- Lessons learned`,
+                                link: "https://www.investopedia.com/articles/active-trading/101014/why-you-should-keep-trading-journal.asp"
+                            }
+                        ]
+                    }
+                }
+            };
+            
+            // Function to open learning interface with specific content
+            function openLearningInterface(topic) {
+                const content = learningContent[topic];
+                if (!content) return;
+                
+                // Set the title
+                learningTitle.textContent = content.title;
+                
+                // Load videos
+                const videosContainer = document.getElementById('videos-container');
+                const videosDescription = document.getElementById('videos-description');
+                videosDescription.textContent = content.videos.description;
+                videosContainer.innerHTML = '';
+                
+                content.videos.items.forEach(video => {
+                    videosContainer.innerHTML += `
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3>${video.title}</h3>
+                                <p>${video.description}</p>
+                                <div class="video-meta">
+                                    <span><i class="far fa-clock"></i> ${video.duration}</span>
+                                    <span><i class="far fa-eye"></i> ${video.level}</span>
+                                </div>
+                                <a href="${video.link}" target="_blank" class="read-btn" style="margin-top: 10px;">Watch Video</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Load reading materials
+                const readingContainer = document.getElementById('reading-container');
+                const readingDescription = document.getElementById('reading-description');
+                readingDescription.textContent = content.reading.description;
+                readingContainer.innerHTML = '';
+                
+                content.reading.items.forEach(item => {
+                    readingContainer.innerHTML += `
+                        <div class="reading-card">
+                            <div class="reading-icon">
+                                <i class="fas fa-${item.icon}"></i>
+                            </div>
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            <a href="${item.link}" target="_blank" class="read-btn">Read Now</a>
+                        </div>
+                    `;
+                });
+                
+                // Load roadmap
+                const roadmapContainer = document.getElementById('roadmap-container');
+                const roadmapDescription = document.getElementById('roadmap-description');
+                roadmapDescription.textContent = content.roadmap.description;
+                roadmapContainer.innerHTML = '';
+                
+                content.roadmap.items.forEach((item, index) => {
+                    roadmapContainer.innerHTML += `
+                        <div class="roadmap-item">
+                            <div class="roadmap-icon">
+                                <i class="fas fa-${item.icon}"></i>
+                            </div>
+                            <div class="roadmap-content">
+                                <h3>${item.title}</h3>
+                                <p>${item.description}</p>
+                                <span class="roadmap-status status-${item.status}">${item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Load practice exercises
+                const practiceContainer = document.getElementById('practice-container');
+                const practiceDescription = document.getElementById('practice-description');
+                practiceDescription.textContent = content.practice.description;
+                practiceContainer.innerHTML = '';
+                
+                content.practice.items.forEach(item => {
+                    practiceContainer.innerHTML += `
+                        <div class="practice-card">
+                            <div class="practice-icon">
+                                <i class="fas fa-${item.icon}"></i>
+                            </div>
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            <div class="practice-template">
+                                ${item.template}
+                            </div>
+                            <a href="${item.link}" target="_blank" class="start-practice">Start Challenge</a>
+                        </div>
+                    `;
+                });
+                
+                // Show learning interface
+                learningInterface.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Event listeners for Start Learning buttons
+            document.getElementById('startLearningBtnVideo').addEventListener('click', function() {
+                openLearningInterface('videoediting');
+            });
+            
+            document.getElementById('startLearningBtnAd').addEventListener('click', function() {
+                openLearningInterface('adcreation');
+            });
+            
+            document.getElementById('startLearningBtnDigital').addEventListener('click', function() {
+                openLearningInterface('digitalmarketing');
+            });
+            
+            document.getElementById('startLearningBtnContent').addEventListener('click', function() {
+                openLearningInterface('contentcreation');
+            });
+            
+            document.getElementById('startLearningBtnUIUX').addEventListener('click', function() {
+                openLearningInterface('uiux');
+            });
+            
+            document.getElementById('startLearningBtnTrading').addEventListener('click', function() {
+                openLearningInterface('stocktrading');
+            });
+            
+            // Close Learning Interface
+            closeLearningBtn.addEventListener('click', function() {
+                learningInterface.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Learning navigation tabs
+            learningNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items and contents
+                    learningNavItems.forEach(i => i.classList.remove('active'));
+                    learningTabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Show the corresponding content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

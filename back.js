@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import path from "path";
 import { fileURLToPath } from 'url';
+import setupChatRoutes from "./chat.js";
 
 // Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +46,18 @@ async function connectDB() {
     process.exit(1);
   }
 }
+
+const PORT = process.env.PORT || 3000;
+// after db connected
+connectDB().then(() => {
+  // Register AI Chat routes
+  setupChatRoutes(app, db, authenticateToken);
+ 
+
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+});
 
 async function initializeSampleData() {
   const usersCollection = db.collection("users");
@@ -114,41 +127,41 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// OpenAI setup
-const openai = new OpenAI({ 
-  baseURL: "https://router.huggingface.co/v1",
-  apiKey: process.env.HF_TOKEN
-});
+// // OpenAI setup
+// const openai = new OpenAI({ 
+//   baseURL: "https://router.huggingface.co/v1",
+//   apiKey: process.env.HF_TOKEN
+// });
 
-// Enhanced knowledge base
-const knowledgeBase = {
-  math: "Focus on NCERT and RD Sharma. Practice daily problems and revise formulas regularly.",
-  science: "NCERT diagrams are crucial. Conduct small experiments and understand concepts practically.",
-  english: "Daily reading improves vocabulary. Practice writing essays and grammar exercises.",
-  general: "Maintain consistent study schedule. Take breaks every 45 minutes for better retention."
-};
+// // Enhanced knowledge base
+// const knowledgeBase = {
+//   math: "Focus on NCERT and RD Sharma. Practice daily problems and revise formulas regularly.",
+//   science: "NCERT diagrams are crucial. Conduct small experiments and understand concepts practically.",
+//   english: "Daily reading improves vocabulary. Practice writing essays and grammar exercises.",
+//   general: "Maintain consistent study schedule. Take breaks every 45 minutes for better retention."
+// };
 
-// Rate limiting
-const rateLimit = new Map();
+// // Rate limiting
+// const rateLimit = new Map();
 
-function checkRateLimit(studentId) {
-  const now = Date.now();
-  const windowStart = now - 60000; // 1 minute window
+// function checkRateLimit(studentId) {
+//   const now = Date.now();
+//   const windowStart = now - 60000; // 1 minute window
   
-  if (!rateLimit.has(studentId)) {
-    rateLimit.set(studentId, []);
-  }
+//   if (!rateLimit.has(studentId)) {
+//     rateLimit.set(studentId, []);
+//   }
   
-  const requests = rateLimit.get(studentId).filter(time => time > windowStart);
-  rateLimit.set(studentId, requests);
+//   const requests = rateLimit.get(studentId).filter(time => time > windowStart);
+//   rateLimit.set(studentId, requests);
   
-  if (requests.length >= 10) { // 10 requests per minute
-    return false;
-  }
+//   if (requests.length >= 10) { // 10 requests per minute
+//     return false;
+//   }
   
-  requests.push(now);
-  return true;
-}
+//   requests.push(now);
+//   return true;
+// }
 
 // Authentication Routes
 app.post("/api/register", async (req, res) => {
@@ -486,182 +499,182 @@ app.put("/api/profile", authenticateToken, async (req, res) => {
   }
 });
 
-// Updated Chat endpoint with authentication
-app.post("/api/chat", authenticateToken, async (req, res) => {
-  try {
-    const { text, messageId } = req.body;
-    const studentId = req.user.userType === 'student' ? req.user.userId : req.body.studentId;
+// // Updated Chat endpoint with authentication
+// app.post("/api/chat", authenticateToken, async (req, res) => {
+//   try {
+//     const { text, messageId } = req.body;
+//     const studentId = req.user.userType === 'student' ? req.user.userId : req.body.studentId;
     
-    if (!text) {
-      return res.status(400).json({ 
-        error: "Message text is required",
-        success: false
-      });
-    }
+//     if (!text) {
+//       return res.status(400).json({ 
+//         error: "Message text is required",
+//         success: false
+//       });
+//     }
 
-    if (req.user.userType === 'parent' && !studentId) {
-      return res.status(400).json({ 
-        error: "Student ID is required for parent accounts",
-        success: false
-      });
-    }
+//     if (req.user.userType === 'parent' && !studentId) {
+//       return res.status(400).json({ 
+//         error: "Student ID is required for parent accounts",
+//         success: false
+//       });
+//     }
 
-    // Rate limiting
-    if (!checkRateLimit(studentId || req.user.userId)) {
-      return res.status(429).json({
-        error: "Too many requests. Please wait a moment.",
-        success: false
-      });
-    }
+//     // Rate limiting
+//     if (!checkRateLimit(studentId || req.user.userId)) {
+//       return res.status(429).json({
+//         error: "Too many requests. Please wait a moment.",
+//         success: false
+//       });
+//     }
 
-    // Fetch student data for context
-    let student;
-    if (req.user.userType === 'student') {
-      student = await db.collection("users").findOne({ _id: new ObjectId(req.user.userId) });
-    } else {
-      student = await db.collection("users").findOne({ _id: new ObjectId(studentId) });
-    }
+//     // Fetch student data for context
+//     let student;
+//     if (req.user.userType === 'student') {
+//       student = await db.collection("users").findOne({ _id: new ObjectId(req.user.userId) });
+//     } else {
+//       student = await db.collection("users").findOne({ _id: new ObjectId(studentId) });
+//     }
 
-    if (!student) {
-      return res.status(404).json({ 
-        error: "Student not found.",
-        success: false
-      });
-    }
+//     if (!student) {
+//       return res.status(404).json({ 
+//         error: "Student not found.",
+//         success: false
+//       });
+//     }
 
-    // Update last active timestamp
-    await db.collection("users").updateOne(
-      { _id: student._id },
-      { $set: { lastActive: new Date() } }
-    );
+//     // Update last active timestamp
+//     await db.collection("users").updateOne(
+//       { _id: student._id },
+//       { $set: { lastActive: new Date() } }
+//     );
 
-    // Save user message to database
-    const userMessage = {
-      studentId: student._id,
-      messageId: messageId || new ObjectId().toString(),
-      role: "user",
-      content: text,
-      timestamp: new Date(),
-      userType: req.user.userType
-    };
-    await db.collection("chat_history").insertOne(userMessage);
+//     // Save user message to database
+//     const userMessage = {
+//       studentId: student._id,
+//       messageId: messageId || new ObjectId().toString(),
+//       role: "user",
+//       content: text,
+//       timestamp: new Date(),
+//       userType: req.user.userType
+//     };
+//     await db.collection("chat_history").insertOne(userMessage);
 
-    // Prepare context for AI
-    const studentContext = `
-Student Profile:
-- Name: ${student.name}
-- Class: ${student.studentClass || 'Not specified'}
-- Performance: Math ${student.performance?.math || 0}%, Science ${student.performance?.science || 0}%, English ${student.performance?.english || 0}%
-- Attendance: ${student.attendance || 0}%
-- Recent Remarks: ${student.remarks || "No remarks yet"}
-`;
+//     // Prepare context for AI
+//     const studentContext = `
+// Student Profile:
+// - Name: ${student.name}
+// - Class: ${student.studentClass || 'Not specified'}
+// - Performance: Math ${student.performance?.math || 0}%, Science ${student.performance?.science || 0}%, English ${student.performance?.english || 0}%
+// - Attendance: ${student.attendance || 0}%
+// - Recent Remarks: ${student.remarks || "No remarks yet"}
+// `;
 
-    // Get recent conversation history for context
-    const recentMessages = await db.collection("chat_history")
-      .find({ studentId: student._id })
-      .sort({ timestamp: -1 })
-      .limit(6)
-      .toArray();
+//     // Get recent conversation history for context
+//     const recentMessages = await db.collection("chat_history")
+//       .find({ studentId: student._id })
+//       .sort({ timestamp: -1 })
+//       .limit(6)
+//       .toArray();
     
-    const conversationHistory = recentMessages.reverse()
-      .map(msg => `${msg.role}: ${msg.content}`)
-      .join("\n");
+//     const conversationHistory = recentMessages.reverse()
+//       .map(msg => `${msg.role}: ${msg.content}`)
+//       .join("\n");
 
-    // Generate AI response
-    const completion = await openai.chat.completions.create({
-      model: "Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
-      messages: [
-        {
-          role: "system",
-          content: `You are a friendly, knowledgeable educational mentor. 
+//     // Generate AI response
+//     const completion = await openai.chat.completions.create({
+//       model: "Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
+//       messages: [
+//         {
+//           role: "system",
+//           content: `You are a friendly, knowledgeable educational mentor. 
           
-Guidelines:
-1. Be supportive, encouraging, and personalized
-2. Reference the student's performance data when relevant
-3. Provide practical, actionable advice
-4. Keep responses concise but helpful
-5. If unsure, ask clarifying questions
+// Guidelines:
+// 1. Be supportive, encouraging, and personalized
+// 2. Reference the student's performance data when relevant
+// 3. Provide practical, actionable advice
+// 4. Keep responses concise but helpful
+// 5. If unsure, ask clarifying questions
 
-Knowledge Base:
-${JSON.stringify(knowledgeBase, null, 2)}
+// Knowledge Base:
+// ${JSON.stringify(knowledgeBase, null, 2)}
 
-Student Context:
-${studentContext}
+// Student Context:
+// ${studentContext}
 
-Recent Conversation:
-${conversationHistory}
+// Recent Conversation:
+// ${conversationHistory}
 
-Always respond in a warm, mentor-like tone.`
-        },
-        { role: "user", content: text }
-      ],
-      max_tokens: 500,
-      temperature: 0.7
-    });
+// Always respond in a warm, mentor-like tone.`
+//         },
+//         { role: "user", content: text }
+//       ],
+//       max_tokens: 500,
+//       temperature: 0.7
+//     });
 
-    const aiResponse = completion.choices[0].message.content;
+//     const aiResponse = completion.choices[0].message.content;
     
-    // Save AI response to database
-    const botMessage = {
-      studentId: student._id,
-      messageId: new ObjectId().toString(),
-      role: "assistant",
-      content: aiResponse,
-      timestamp: new Date()
-    };
-    await db.collection("chat_history").insertOne(botMessage);
+//     // Save AI response to database
+//     const botMessage = {
+//       studentId: student._id,
+//       messageId: new ObjectId().toString(),
+//       role: "assistant",
+//       content: aiResponse,
+//       timestamp: new Date()
+//     };
+//     await db.collection("chat_history").insertOne(botMessage);
     
-    res.json({
-      reply: aiResponse,
-      messageId: botMessage.messageId,
-      timestamp: botMessage.timestamp,
-      success: true
-    });
+//     res.json({
+//       reply: aiResponse,
+//       messageId: botMessage.messageId,
+//       timestamp: botMessage.timestamp,
+//       success: true
+//     });
 
-  } catch (error) {
-    console.error("Chat error:", error);
+//   } catch (error) {
+//     console.error("Chat error:", error);
     
-    // Fallback response
-    const fallbackResponses = [
-      "I'm having trouble connecting right now. Please try again in a moment.",
-      "It seems I'm experiencing some technical difficulties. Could you please rephrase your question?",
-      "I apologize, but I'm unable to process your request at the moment. Please try again shortly."
-    ];
+//     // Fallback response
+//     const fallbackResponses = [
+//       "I'm having trouble connecting right now. Please try again in a moment.",
+//       "It seems I'm experiencing some technical difficulties. Could you please rephrase your question?",
+//       "I apologize, but I'm unable to process your request at the moment. Please try again shortly."
+//     ];
     
-    res.status(500).json({
-      error: "Internal server error",
-      reply: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
-      success: false
-    });
-  }
-});
+//     res.status(500).json({
+//       error: "Internal server error",
+//       reply: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
+//       success: false
+//     });
+//   }
+// });
 
-// Get chat history endpoint (protected)
-app.get("/api/chat/history/:studentId?", authenticateToken, async (req, res) => {
-  try {
-    let studentId = req.params.studentId;
+// // Get chat history endpoint (protected)
+// app.get("/api/chat/history/:studentId?", authenticateToken, async (req, res) => {
+//   try {
+//     let studentId = req.params.studentId;
     
-    // If parent, use provided studentId; if student, use their own ID
-    if (req.user.userType === 'student') {
-      studentId = req.user.userId;
-    } else if (!studentId) {
-      return res.status(400).json({ error: "Student ID required for parent accounts", success: false });
-    }
+//     // If parent, use provided studentId; if student, use their own ID
+//     if (req.user.userType === 'student') {
+//       studentId = req.user.userId;
+//     } else if (!studentId) {
+//       return res.status(400).json({ error: "Student ID required for parent accounts", success: false });
+//     }
 
-    const { limit = 50 } = req.query;
+//     const { limit = 50 } = req.query;
     
-    const history = await db.collection("chat_history")
-      .find({ studentId: new ObjectId(studentId) })
-      .sort({ timestamp: 1 })
-      .limit(parseInt(limit))
-      .toArray();
+//     const history = await db.collection("chat_history")
+//       .find({ studentId: new ObjectId(studentId) })
+//       .sort({ timestamp: 1 })
+//       .limit(parseInt(limit))
+//       .toArray();
     
-    res.json({ history, success: true });
-  } catch (error) {
-    console.error("History fetch error:", error);
-    res.status(500).json({ error: "Failed to fetch chat history", success: false });
-  }
-});
+//     res.json({ history, success: true });
+//   } catch (error) {
+//     console.error("History fetch error:", error);
+//     res.status(500).json({ error: "Failed to fetch chat history", success: false });
+//   }
+// });
 
 // Get all students (for parent dashboard)
 app.get("/api/students", authenticateToken, async (req, res) => {
@@ -696,13 +709,13 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`)
-  });
-});
+// // Start server
+// const PORT = process.env.PORT || 3000;
+// connectDB().then(() => {
+//   app.listen(PORT, () => {
+//     console.log(`🚀 Server running on http://localhost:${PORT}`)
+//   });
+// });
 
 process.on("SIGINT", async () => {
   console.log("Shutting down gracefully...");

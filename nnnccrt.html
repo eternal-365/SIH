@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCERT Curriculum Learning Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* All the existing CSS remains exactly the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: all 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Horizontal Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-tab {
+            padding: 12px 25px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #7f8c8d;
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .nav-tab:hover:not(.active) {
+            background: #f8f9fa;
+            color: #3498db;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f0f3f5;
+            text-align: center;
+        }
+        
+        /* Horizontal Card Layouts */
+        .cards-horizontal {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 15px 5px;
+            margin: 30px 0;
+            scrollbar-width: thin;
+        }
+        
+        .cards-horizontal::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .cards-horizontal::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 10px;
+        }
+        
+        .card {
+            flex: 0 0 auto;
+            width: 320px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .card p {
+            color: #7f8c8d;
+            line-height: 1.7;
+        }
+        
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-box {
+            flex: 1;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefit-card h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        /* Encouragement Section */
+        .encouragement-section {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #2c3e50;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .encouragement-section::before {
+            /* content: """; */
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            font-size: 120px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: serif;
+        }
+        
+        .encouragement-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .encouragement-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .skill-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .skill-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .skill-card i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .skill-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #2ecc71;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Subject Specific Styles */
+        .mathematics-content .card-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .science-content .card-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .socialscience-content .card-icon {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        /* Learning Interface Styles */
+        .learning-interface {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            overflow-y: auto;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .learning-header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .learning-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        .close-learning {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .close-learning:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .learning-nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .learning-nav-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #6c757d;
+        }
+        
+        .learning-nav-item.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+            background: white;
+        }
+        
+        .learning-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .learning-tab-content {
+            display: none;
+        }
+        
+        .learning-tab-content.active {
+            display: block;
+        }
+        
+        /* Video Section Styles */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            height: 200px;
+            background: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+        
+        /* Reading Section Styles */
+        .reading-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .reading-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .reading-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .reading-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .reading-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .reading-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .read-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .read-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Roadmap Section Styles */
+        .roadmap-container {
+            margin-top: 30px;
+        }
+        
+        .roadmap {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #3498db;
+        }
+        
+        .roadmap-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .roadmap-icon {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 30px;
+            z-index: 1;
+        }
+        
+        .roadmap-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .roadmap-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .roadmap-content p {
+            color: #7f8c8d;
+        }
+        
+        .roadmap-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
+        .status-completed {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .status-current {
+            background: #3498db;
+            color: white;
+        }
+        
+        .status-upcoming {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        /* Practice Section Styles */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .practice-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .practice-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .practice-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .practice-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .practice-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .practice-template {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .start-practice {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .start-practice:hover {
+            background: #c0392b;
+        }
+        
+        /* Chapter Cards */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .chapter-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+        }
+        
+        .chapter-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .chapter-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .chapter-content {
+            padding: 20px;
+        }
+        
+        .chapter-content p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .chapter-topics {
+            margin: 15px 0;
+        }
+        
+        .chapter-topics h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .chapter-topics ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .chapter-topics li {
+            padding: 5px 0;
+            color: #7f8c8d;
+            border-bottom: 1px solid #f0f3f5;
+        }
+        
+        .chapter-topics li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .stats-container {
+                flex-direction: column;
+            }
+            
+            .stat-box {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .nav-tab {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .cards-horizontal {
+                flex-direction: column;
+                overflow-x: visible;
+            }
+            
+            .card {
+                width: 100%;
+            }
+            
+            .skills-container {
+                flex-direction: column;
+            }
+            
+            .learning-nav {
+                flex-direction: column;
+            }
+            
+            .learning-nav-item {
+                text-align: center;
+                border-bottom: 1px solid #e9ecef;
+                border-left: 3px solid transparent;
+            }
+            
+            .learning-nav-item.active {
+                border-left: 3px solid #3498db;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .video-grid, .reading-grid, .practice-grid, .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap::before {
+                left: 25px;
+            }
+            
+            .roadmap-icon {
+                width: 50px;
+                height: 50px;
+                margin-right: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-section {
+                padding: 30px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .encouragement-section {
+                padding: 25px 15px;
+            }
+            
+            .encouragement-section h2 {
+                font-size: 1.7rem;
+            }
+            
+            .learning-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NCERT Curriculum Learning Portal</h1>
+            <p>Comprehensive Learning Resources for NCERT Subjects - Classes 6 to 12</p>
+        </header>
+        
+        <!-- Horizontal Navigation Tabs -->
+        <div class="nav-container">
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-tab="welcome">Overview</div>
+                <div class="nav-tab" data-tab="mathematics">Mathematics</div>
+                <div class="nav-tab" data-tab="science">Science</div>
+                <div class="nav-tab" data-tab="socialscience">Social Science</div>
+                <div class="nav-tab" data-tab="english">English</div>
+                <div class="nav-tab" data-tab="hindi">Hindi</div>
+            </div>
+        </div>
+        
+        <!-- Welcome/Overview Section -->
+        <section id="welcome" class="content-section active">
+            <h2 class="section-title">Comprehensive NCERT Learning Platform</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>What is NCERT?</h3>
+                        <p>The National Council of Educational Research and Training is an autonomous organization that provides curriculum frameworks and textbooks for schools in India.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Why NCERT Matters</h3>
+                        <p>NCERT textbooks form the foundation for most school education boards in India and are essential for competitive exams like JEE, NEET, and UPSC.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Our Approach</h3>
+                        <p>We provide comprehensive learning resources including video lessons, interactive exercises, and practice tests for all NCERT subjects.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Learning Path</h3>
+                        <p>Structured chapter-wise learning with concept explanations, solved examples, and practice questions to ensure thorough understanding.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">14+</div>
+                    <div class="stat-text">Subjects Covered</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-text">Chapters with Resources</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-text">Video Lessons</div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Benefits of Learning with NCERT</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3><i class="fas fa-brain"></i> Conceptual Clarity</h3>
+                    <p>NCERT textbooks are designed to build strong foundational concepts that are essential for higher studies and competitive exams.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3><i class="fas fa-check-circle"></i> Exam-Focused</h3>
+                    <p>Most school exams and competitive examinations are based on NCERT curriculum, making it the most relevant study material.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3><i class="fas fa-layer-group"></i> Structured Learning</h3>
+                    <p>NCERT follows a systematic approach where concepts are introduced gradually with increasing complexity.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3><i class="fas fa-award"></i> Quality Content</h3>
+                    <p>Developed by subject matter experts, NCERT content is accurate, reliable, and aligned with national educational standards.</p>
+                </div>
+            </div>
+            
+            <!-- Encouragement Section -->
+            <div class="encouragement-section">
+                <h2>Your Path to Academic Excellence</h2>
+                <p>Mastering NCERT curriculum is not just about scoring well in exams—it's about building a strong foundation for your future academic and professional journey. With our comprehensive learning resources, you can understand concepts deeply, apply knowledge practically, and develop problem-solving skills that will serve you well beyond the classroom. Remember, consistent effort with the right resources is the key to academic success.</p>
+            </div>
+        </section>
+        
+        <!-- Mathematics Section -->
+        <section id="mathematics" class="content-section mathematics-content">
+            <h2 class="section-title">Mathematics</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>About Mathematics</h3>
+                        <p>Mathematics develops logical reasoning, analytical thinking, and problem-solving skills essential for academic and real-world applications.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-shapes"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Key Concepts</h3>
+                        <p>Algebra, Geometry, Trigonometry, Calculus, Statistics, and Probability form the core of mathematics curriculum across classes.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Problem Solving</h3>
+                        <p>Mathematics teaches systematic approaches to solving complex problems through logical steps and analytical thinking.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Real-World Applications</h3>
+                        <p>From finance to engineering, mathematics provides the tools needed for various professional fields and everyday decision-making.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Class 10 Mathematics Chapters</h2>
+            
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 1: Real Numbers</h3>
+                        <p>Class 10 | Mathematics</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Understanding the real number system, Euclid's division algorithm, fundamental theorem of arithmetic, and irrational numbers.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Euclid's Division Lemma</li>
+                                <li>Fundamental Theorem of Arithmetic</li>
+                                <li>Revisiting Irrational Numbers</li>
+                                <li>Decimal Expansions of Real Numbers</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="mathematics" data-chapter="real-numbers">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 2: Polynomials</h3>
+                        <p>Class 10 | Mathematics</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Exploring polynomials, their degrees, zeros, and the relationship between zeros and coefficients of polynomials.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Introduction to Polynomials</li>
+                                <li>Geometrical Meaning of Zeros</li>
+                                <li>Relationship between Zeros and Coefficients</li>
+                                <li>Division Algorithm for Polynomials</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="mathematics" data-chapter="polynomials">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 3: Pair of Linear Equations</h3>
+                        <p>Class 10 | Mathematics</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Solving pairs of linear equations in two variables using graphical and algebraic methods with real-life applications.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Graphical Method of Solution</li>
+                                <li>Algebraic Methods - Substitution</li>
+                                <li>Algebraic Methods - Elimination</li>
+                                <li>Equations Reducible to Linear Form</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="mathematics" data-chapter="linear-equations">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Science Section -->
+        <section id="science" class="content-section science-content">
+            <h2 class="section-title">Science</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>About Science</h3>
+                        <p>Science helps us understand the natural world through observation, experimentation, and evidence-based reasoning.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Scientific Method</h3>
+                        <p>Learning to approach problems systematically through hypothesis, experimentation, observation, and conclusion.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Interdisciplinary Nature</h3>
+                        <p>Science connects physics, chemistry, and biology to explain phenomena in the natural world.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Practical Applications</h3>
+                        <p>Scientific knowledge leads to technological innovations that improve our quality of life and solve real-world problems.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Class 10 Science Chapters</h2>
+            
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 1: Chemical Reactions</h3>
+                        <p>Class 10 | Science</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Understanding chemical equations, types of chemical reactions, and effects of oxidation reactions in everyday life.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Chemical Equations</li>
+                                <li>Types of Chemical Reactions</li>
+                                <li>Oxidation and Reduction</li>
+                                <li>Effects of Oxidation in Daily Life</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="science" data-chapter="chemical-reactions">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 2: Acids, Bases and Salts</h3>
+                        <p>Class 10 | Science</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Exploring the properties of acids and bases, pH scale, and the preparation and uses of various salts.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Understanding Acids and Bases</li>
+                                <li>pH Scale and Its Importance</li>
+                                <li>Salts and Their Properties</li>
+                                <li>Common Salt and Its Uses</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="science" data-chapter="acids-bases">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 3: Life Processes</h3>
+                        <p>Class 10 | Science</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Studying the basic life processes including nutrition, respiration, transportation, and excretion in living organisms.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Nutrition in Plants and Animals</li>
+                                <li>Respiration Process</li>
+                                <li>Transportation in Organisms</li>
+                                <li>Excretion in Living Beings</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="science" data-chapter="life-processes">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Social Science Section -->
+        <section id="socialscience" class="content-section socialscience-content">
+            <h2 class="section-title">Social Science</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>About Social Science</h3>
+                        <p>Social Science helps us understand society, human behavior, and the relationships between individuals and their environment.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Interdisciplinary Approach</h3>
+                        <p>Integrating history, geography, political science, and economics to provide a comprehensive understanding of society.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Citizenship Education</h3>
+                        <p>Developing informed and responsible citizens who understand their rights, duties, and role in society.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Critical Thinking</h3>
+                        <p>Analyzing social issues from multiple perspectives and developing evidence-based conclusions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Class 10 Social Science Chapters</h2>
+            
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 1: The Rise of Nationalism</h3>
+                        <p>Class 10 | Social Science</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Exploring the growth of nationalism in Europe and its impact on the contemporary world.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>French Revolution and Nationalism</li>
+                                <li>Making of Nationalism in Europe</li>
+                                <li>Age of Revolutions</li>
+                                <li>Nationalism and Imperialism</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="socialscience" data-chapter="nationalism">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 2: Resources and Development</h3>
+                        <p>Class 10 | Social Science</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Understanding different types of resources, their distribution, and sustainable development.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Types of Resources</li>
+                                <li>Resource Planning in India</li>
+                                <li>Land Resources and Agriculture</li>
+                                <li>Water and Mineral Resources</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="socialscience" data-chapter="resources">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 3: Power Sharing</h3>
+                        <p>Class 10 | Social Science</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Examining different forms of power sharing in democracies and their importance.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Belgium and Sri Lanka Case Studies</li>
+                                <li>Forms of Power Sharing</li>
+                                <li>Federalism and Decentralization</li>
+                                <li>Importance of Power Sharing</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="socialscience" data-chapter="power-sharing">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- English Section -->
+        <section id="english" class="content-section">
+            <h2 class="section-title">English</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>About English</h3>
+                        <p>English language learning focuses on developing communication skills, literary appreciation, and critical thinking.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Language Skills</h3>
+                        <p>Developing reading, writing, listening, and speaking skills for effective communication.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Literature Appreciation</h3>
+                        <p>Exploring literary works to understand human experiences, cultures, and societal values.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Critical Analysis</h3>
+                        <p>Developing the ability to analyze texts, interpret meanings, and form independent opinions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Class 10 English Chapters</h2>
+            
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 1: A Letter to God</h3>
+                        <p>Class 10 | English</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Exploring themes of faith, hope, and human nature through the story of a farmer's letter to God.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Reading Comprehension</li>
+                                <li>Character Analysis</li>
+                                <li>Theme Exploration</li>
+                                <li>Vocabulary Building</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="english" data-chapter="letter-to-god">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 2: Nelson Mandela</h3>
+                        <p>Class 10 | English</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Learning about the life and legacy of Nelson Mandela through biographical writing.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Biographical Writing</li>
+                                <li>Historical Context</li>
+                                <li>Leadership Qualities</li>
+                                <li>Grammar and Writing Skills</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="english" data-chapter="nelson-mandela">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 3: Two Stories About Flying</h3>
+                        <p>Class 10 | English</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>Comparing two different perspectives on flying through engaging narratives.</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>Comparative Analysis</li>
+                                <li>Narrative Techniques</li>
+                                <li>Symbolism in Literature</li>
+                                <li>Creative Writing</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="english" data-chapter="flying-stories">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Hindi Section -->
+        <section id="hindi" class="content-section">
+            <h2 class="section-title">Hindi</h2>
+            
+            <div class="cards-horizontal">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>About Hindi</h3>
+                        <p>Hindi language learning focuses on developing proficiency in reading, writing, and speaking the national language of India.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-pen-nib"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Grammar and Vocabulary</h3>
+                        <p>Mastering Hindi grammar rules, sentence structure, and expanding vocabulary for effective communication.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Literature</h3>
+                        <p>Exploring Hindi literature including poetry, prose, and drama from different periods and authors.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Communication Skills</h3>
+                        <p>Developing speaking and writing skills for various contexts including formal and informal communication.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Class 10 Hindi Chapters</h2>
+            
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 1: हरिहर काका</h3>
+                        <p>Class 10 | Hindi</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>एक गाँव के बुजुर्ग की कहानी जो परिवार और समाज के बीच संघर्ष को दर्शाती है।</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>कहानी का सारांश</li>
+                                <li>पात्रों का विश्लेषण</li>
+                                <li>व्याकरणिक संरचनाएँ</li>
+                                <li>शब्दावली विस्तार</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="hindi" data-chapter="harihar-kaka">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 2: सपनों के-से दिन</h3>
+                        <p>Class 10 | Hindi</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>बचपन की यादों और सपनों पर आधारित संस्मरणात्मक रचना।</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>संस्मरण विधा</li>
+                                <li>भाषा की बारीकियाँ</li>
+                                <li>व्याकरण अभ्यास</li>
+                                <li>रचनात्मक लेखन</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="hindi" data-chapter="sapnon-ke-din">Start Learning</button>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <h3>Chapter 3: तताँरा-वामीरो कथा</h3>
+                        <p>Class 10 | Hindi</p>
+                    </div>
+                    <div class="chapter-content">
+                        <p>निकोबार द्वीप समूह की लोककथा जो प्रेम और बलिदान की कहानी कहती है।</p>
+                        <div class="chapter-topics">
+                            <h4>Key Topics:</h4>
+                            <ul>
+                                <li>लोककथा की विशेषताएँ</li>
+                                <li>कथा का सांस्कृतिक संदर्भ</li>
+                                <li>भाषा की सरलता</li>
+                                <li>पठन कौशल विकास</li>
+                            </ul>
+                        </div>
+                        <button class="cta-btn start-chapter" data-subject="hindi" data-chapter="tatanra-vamira">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Learning Interface (Initially Hidden) -->
+        <div class="learning-interface" id="learningInterface">
+            <div class="learning-header">
+                <h2 id="learningTitle">Chapter Learning Path</h2>
+                <button class="close-learning" id="closeLearning">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="learning-nav">
+                <div class="learning-nav-item active" data-tab="videos">Videos</div>
+                <div class="learning-nav-item" data-tab="reading">Reading</div>
+                <div class="learning-nav-item" data-tab="roadmap">Roadmap</div>
+                <div class="learning-nav-item" data-tab="practice">Practice</div>
+            </div>
+            
+            <div class="learning-content">
+                <!-- Videos Tab -->
+                <div class="learning-tab-content active" id="videos-tab">
+                    <h2 class="section-title">Video Lessons</h2>
+                    <p id="videos-description">Watch these tutorials to learn concepts visually.</p>
+                    
+                    <div class="video-grid" id="videos-container">
+                        <!-- Videos will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Reading Tab -->
+                <div class="learning-tab-content" id="reading-tab">
+                    <h2 class="section-title">Reading Materials</h2>
+                    <p id="reading-description">Deepen your understanding with these comprehensive reading resources.</p>
+                    
+                    <div class="reading-grid" id="reading-container">
+                        <!-- Reading materials will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Roadmap Tab -->
+                <div class="learning-tab-content" id="roadmap-tab">
+                    <h2 class="section-title">Learning Roadmap</h2>
+                    <p id="roadmap-description">Follow this structured path to master the chapter step by step.</p>
+                    
+                    <div class="roadmap-container">
+                        <div class="roadmap" id="roadmap-container">
+                            <!-- Roadmap items will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Practice Tab -->
+                <div class="learning-tab-content" id="practice-tab">
+                    <h2 class="section-title">Practice Exercises</h2>
+                    <p id="practice-description">Apply what you've learned with these hands-on exercises and challenges.</p>
+                    
+                    <div class="practice-grid" id="practice-container">
+                        <!-- Practice exercises will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.content-section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show the corresponding section
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Learning interface functionality
+            const learningInterface = document.getElementById('learningInterface');
+            const closeLearningBtn = document.getElementById('closeLearning');
+            const learningNavItems = document.querySelectorAll('.learning-nav-item');
+            const learningTabContents = document.querySelectorAll('.learning-tab-content');
+            const learningTitle = document.getElementById('learningTitle');
+            
+            // NCERT Chapter content data
+            const ncertContent = {
+                mathematics: {
+                    chapters: {
+                        "real-numbers": {
+                            title: "Chapter 1: Real Numbers - Class 10 Mathematics",
+                            videos: {
+                                description: "Watch these video lessons to understand real numbers concepts.",
+                                items: [
+                                    {
+                                        title: "Introduction to Real Numbers",
+                                        description: "Understanding the classification of numbers and the real number system.",
+                                        duration: "15 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=UZ6h_ddW-7s"
+                                    },
+                                    {
+                                        title: "Euclid's Division Lemma",
+                                        description: "Learning Euclid's division algorithm and its applications.",
+                                        duration: "20 min",
+                                        level: "Intermediate",
+                                        link: "https://www.youtube.com/watch?v=Z0c4O2WjV8w"
+                                    },
+                                    {
+                                        title: "Fundamental Theorem of Arithmetic",
+                                        description: "Understanding prime factorization and its importance.",
+                                        duration: "18 min",
+                                        level: "Intermediate",
+                                        link: "https://www.youtube.com/watch?v=8Wdc6Ut7dYk"
+                                    },
+                                    {
+                                        title: "Irrational Numbers",
+                                        description: "Proving the irrationality of numbers like √2, √3, etc.",
+                                        duration: "22 min",
+                                        level: "Advanced",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of real numbers.",
+                                items: [
+                                    {
+                                        title: "Real Numbers NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?jemh1=1-14"
+                                    },
+                                    {
+                                        title: "Important Formulas and Theorems",
+                                        description: "Summary of all important formulas and theorems from the chapter.",
+                                        icon: "file-pdf",
+                                        link: "https://www.learncbse.in/real-numbers-class-10-notes/"
+                                    },
+                                    {
+                                        title: "Solved Examples and Applications",
+                                        description: "Step-by-step solutions to important problems from the chapter.",
+                                        icon: "book",
+                                        link: "https://www.toppr.com/guides/maths/real-numbers/"
+                                    },
+                                    {
+                                        title: "Revision Notes",
+                                        description: "Concise notes for quick revision before exams.",
+                                        icon: "book",
+                                        link: "https://www.vedantu.com/revision-notes/cbse-class-10-maths-notes-chapter-1-real-numbers"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Real Numbers",
+                                        description: "Understand the classification of numbers and the real number system.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    },
+                                    {
+                                        title: "Euclid's Division Lemma",
+                                        description: "Learn Euclid's division algorithm and practice related problems.",
+                                        icon: "calculator",
+                                        status: "current"
+                                    },
+                                    {
+                                        title: "Fundamental Theorem of Arithmetic",
+                                        description: "Master prime factorization and its applications.",
+                                        icon: "hashtag",
+                                        status: "upcoming"
+                                    },
+                                    {
+                                        title: "Irrational Numbers",
+                                        description: "Understand and prove the irrationality of various numbers.",
+                                        icon: "infinity",
+                                        status: "upcoming"
+                                    },
+                                    {
+                                        title: "Chapter Revision and Practice",
+                                        description: "Revise the entire chapter and solve practice questions.",
+                                        icon: "sync-alt",
+                                        status: "upcoming"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is a rational number? Give examples.<br>2. Differentiate between rational and irrational numbers.<br>3. State Euclid's division lemma.`,
+                                        link: "https://www.learncbse.in/important-questions-for-class-10-maths-chapter-1/"
+                                    },
+                                    {
+                                        title: "Problem Solving Exercises",
+                                        description: "Practice solving problems based on Euclid's division algorithm.",
+                                        icon: "pencil-alt",
+                                        template: `Sample Problems:<br>1. Use Euclid's algorithm to find HCF of 867 and 255.<br>2. Show that any positive odd integer is of the form 6q+1, 6q+3, or 6q+5.`,
+                                        link: "https://www.cuemath.com/ncert-solutions/use-euclids-division-algorithm-to-find-the-hcf-of-867-and-255/"
+                                    },
+                                    {
+                                        title: "Proof-Based Questions",
+                                        description: "Practice proving statements about irrational numbers.",
+                                        icon: "key",
+                                        template: `Sample Proofs:<br>1. Prove that √5 is irrational.<br>2. Prove that 3+2√5 is irrational.`,
+                                        link: "https://www.teachoo.com/14112/3505/Ex-1.2--1-iii/category/Ex-1.2/"
+                                    },
+                                    {
+                                        title: "Chapter Test",
+                                        description: "Take a comprehensive test to evaluate your understanding of the chapter.",
+                                        icon: "clipboard-check",
+                                        template: `Test Format:<br>- 10 Multiple Choice Questions<br>- 5 Short Answer Questions<br>- 2 Long Answer Questions<br>- Time: 45 minutes`,
+                                        link: "https://www.learncbse.in/real-numbers-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        },
+                        "polynomials": {
+                            title: "Chapter 2: Polynomials - Class 10 Mathematics",
+                            videos: {
+                                description: "Watch these video lessons to understand polynomials.",
+                                items: [
+                                    {
+                                        title: "Introduction to Polynomials",
+                                        description: "Understanding what polynomials are and their basic concepts.",
+                                        duration: "16 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=6qLscK2KfW4"
+                                    },
+                                    {
+                                        title: "Zeros of Polynomials",
+                                        description: "Learning how to find zeros of polynomials and their significance.",
+                                        duration: "22 min",
+                                        level: "Intermediate",
+                                        link: "https://www.youtube.com/watch?v=Ybw8Z5hqW_c"
+                                    },
+                                    {
+                                        title: "Division Algorithm for Polynomials",
+                                        description: "Understanding how to divide polynomials and find remainders.",
+                                        duration: "20 min",
+                                        level: "Intermediate",
+                                        link: "https://www.youtube.com/watch?v=8Wdc6Ut7dYk"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of polynomials.",
+                                items: [
+                                    {
+                                        title: "Polynomials NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?jemh1=2-14"
+                                    },
+                                    {
+                                        title: "Important Formulas and Theorems",
+                                        description: "Summary of all important formulas and theorems from the chapter.",
+                                        icon: "file-pdf",
+                                        link: "https://www.learncbse.in/polynomials-class-10-notes/"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Polynomials",
+                                        description: "Understand what polynomials are and their basic concepts.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    },
+                                    {
+                                        title: "Zeros of Polynomials",
+                                        description: "Learn how to find zeros of polynomials and their significance.",
+                                        icon: "calculator",
+                                        status: "current"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is a polynomial? Give examples.<br>2. Differentiate between linear, quadratic and cubic polynomials.`,
+                                        link: "https://www.learncbse.in/polynomials-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        },
+                        "linear-equations": {
+                            title: "Chapter 3: Pair of Linear Equations - Class 10 Mathematics",
+                            videos: {
+                                description: "Watch these video lessons to understand linear equations.",
+                                items: [
+                                    {
+                                        title: "Introduction to Linear Equations",
+                                        description: "Understanding what linear equations are and their basic concepts.",
+                                        duration: "18 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=hZlOeU6vGos"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of linear equations.",
+                                items: [
+                                    {
+                                        title: "Linear Equations NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?jemh1=3-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Linear Equations",
+                                        description: "Understand what linear equations are and their basic concepts.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is a linear equation? Give examples.<br>2. How to solve a pair of linear equations?`,
+                                        link: "https://www.learncbse.in/pair-of-linear-equations-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                science: {
+                    chapters: {
+                        "chemical-reactions": {
+                            title: "Chapter 1: Chemical Reactions - Class 10 Science",
+                            videos: {
+                                description: "Watch these video lessons to understand chemical reactions.",
+                                items: [
+                                    {
+                                        title: "Introduction to Chemical Reactions",
+                                        description: "Understanding what chemical reactions are and their basic concepts.",
+                                        duration: "17 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of chemical reactions.",
+                                items: [
+                                    {
+                                        title: "Chemical Reactions NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?iesc1=1-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Chemical Reactions",
+                                        description: "Understand what chemical reactions are and their basic concepts.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is a chemical reaction? Give examples.<br>2. Differentiate between physical and chemical changes.`,
+                                        link: "https://www.learncbse.in/chemical-reactions-and-equations-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        },
+                        "acids-bases": {
+                            title: "Chapter 2: Acids, Bases and Salts - Class 10 Science",
+                            videos: {
+                                description: "Watch these video lessons to understand acids, bases and salts.",
+                                items: [
+                                    {
+                                        title: "Introduction to Acids and Bases",
+                                        description: "Understanding what acids and bases are and their properties.",
+                                        duration: "19 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of acids, bases and salts.",
+                                items: [
+                                    {
+                                        title: "Acids, Bases and Salts NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?iesc1=2-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Acids and Bases",
+                                        description: "Understand what acids and bases are and their properties.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What are acids? Give examples.<br>2. What are bases? Give examples.`,
+                                        link: "https://www.learncbse.in/acids-bases-and-salts-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        },
+                        "life-processes": {
+                            title: "Chapter 3: Life Processes - Class 10 Science",
+                            videos: {
+                                description: "Watch these video lessons to understand life processes.",
+                                items: [
+                                    {
+                                        title: "Introduction to Life Processes",
+                                        description: "Understanding what life processes are and their importance.",
+                                        duration: "21 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of life processes.",
+                                items: [
+                                    {
+                                        title: "Life Processes NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?iesc1=6-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Life Processes",
+                                        description: "Understand what life processes are and their importance.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What are life processes? List them.<br>2. Explain nutrition in plants.`,
+                                        link: "https://www.learncbse.in/life-processes-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                socialscience: {
+                    chapters: {
+                        "nationalism": {
+                            title: "Chapter 1: The Rise of Nationalism - Class 10 Social Science",
+                            videos: {
+                                description: "Watch these video lessons to understand the rise of nationalism.",
+                                items: [
+                                    {
+                                        title: "Introduction to Nationalism",
+                                        description: "Understanding what nationalism is and its historical context.",
+                                        duration: "23 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of nationalism.",
+                                items: [
+                                    {
+                                        title: "The Rise of Nationalism NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?iess1=1-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Nationalism",
+                                        description: "Understand what nationalism is and its historical context.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is nationalism?<br>2. Explain the rise of nationalism in Europe.`,
+                                        link: "https://www.learncbse.in/the-rise-of-nationalism-in-europe-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        },
+                        "resources": {
+                            title: "Chapter 2: Resources and Development - Class 10 Social Science",
+                            videos: {
+                                description: "Watch these video lessons to understand resources and development.",
+                                items: [
+                                    {
+                                        title: "Introduction to Resources",
+                                        description: "Understanding what resources are and their classification.",
+                                        duration: "24 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of resources and development.",
+                                items: [
+                                    {
+                                        title: "Resources and Development NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?iess2=1-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Resources",
+                                        description: "Understand what resources are and their classification.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What are resources? Classify them.<br>2. Explain sustainable development.`,
+                                        link: "https://www.learncbse.in/resources-and-development-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        },
+                        "power-sharing": {
+                            title: "Chapter 3: Power Sharing - Class 10 Social Science",
+                            videos: {
+                                description: "Watch these video lessons to understand power sharing.",
+                                items: [
+                                    {
+                                        title: "Introduction to Power Sharing",
+                                        description: "Understanding what power sharing is and its importance.",
+                                        duration: "25 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of power sharing.",
+                                items: [
+                                    {
+                                        title: "Power Sharing NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook with solved examples.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?iess3=1-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Introduction to Power Sharing",
+                                        description: "Understand what power sharing is and its importance.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Basic Concept Questions",
+                                        description: "Test your understanding of fundamental concepts with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is power sharing?<br>2. Explain different forms of power sharing.`,
+                                        link: "https://www.learncbse.in/power-sharing-class-10-extra-questions/"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                english: {
+                    chapters: {
+                        "letter-to-god": {
+                            title: "Chapter 1: A Letter to God - Class 10 English",
+                            videos: {
+                                description: "Watch these video lessons to understand the chapter.",
+                                items: [
+                                    {
+                                        title: "Summary of A Letter to God",
+                                        description: "Understanding the story and its themes.",
+                                        duration: "26 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of the chapter.",
+                                items: [
+                                    {
+                                        title: "A Letter to God NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?ieng1=1-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Summary of A Letter to God",
+                                        description: "Understand the story and its themes.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Comprehension Questions",
+                                        description: "Test your understanding of the story with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What is the theme of the story?<br>2. Describe the character of Lencho.`,
+                                        link: "https://www.learncbse.in/a-letter-to-god-extra-questions-and-answers/"
+                                    }
+                                ]
+                            }
+                        },
+                        "nelson-mandela": {
+                            title: "Chapter 2: Nelson Mandela - Class 10 English",
+                            videos: {
+                                description: "Watch these video lessons to understand the chapter.",
+                                items: [
+                                    {
+                                        title: "Summary of Nelson Mandela",
+                                        description: "Understanding the life and legacy of Nelson Mandela.",
+                                        duration: "27 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of the chapter.",
+                                items: [
+                                    {
+                                        title: "Nelson Mandela NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?ieng1=2-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Summary of Nelson Mandela",
+                                        description: "Understand the life and legacy of Nelson Mandela.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Comprehension Questions",
+                                        description: "Test your understanding of the chapter with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. What were Nelson Mandela's contributions?<br>2. Explain the concept of apartheid.`,
+                                        link: "https://www.learncbse.in/nelson-mandela-long-walk-to-freedom-extra-questions-and-answers/"
+                                    }
+                                ]
+                            }
+                        },
+                        "flying-stories": {
+                            title: "Chapter 3: Two Stories About Flying - Class 10 English",
+                            videos: {
+                                description: "Watch these video lessons to understand the chapter.",
+                                items: [
+                                    {
+                                        title: "Summary of Two Stories About Flying",
+                                        description: "Understanding the two stories and their themes.",
+                                        duration: "28 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of the chapter.",
+                                items: [
+                                    {
+                                        title: "Two Stories About Flying NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?ieng1=3-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Summary of Two Stories About Flying",
+                                        description: "Understand the two stories and their themes.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Comprehension Questions",
+                                        description: "Test your understanding of the chapter with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. Compare the two stories about flying.<br>2. What is the moral of each story?`,
+                                        link: "https://www.learncbse.in/two-stories-about-flying-extra-questions-and-answers/"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                hindi: {
+                    chapters: {
+                        "harihar-kaka": {
+                            title: "Chapter 1: हरिहर काका - Class 10 Hindi",
+                            videos: {
+                                description: "Watch these video lessons to understand the chapter.",
+                                items: [
+                                    {
+                                        title: "Summary of हरिहर काका",
+                                        description: "Understanding the story and its themes.",
+                                        duration: "29 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of the chapter.",
+                                items: [
+                                    {
+                                        title: "हरिहर काका NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?ihin1=1-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Summary of हरिहर काका",
+                                        description: "Understand the story and its themes.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Comprehension Questions",
+                                        description: "Test your understanding of the story with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. कहानी का सारांश लिखिए।<br>2. हरिहर काका का चरित्र चित्रण कीजिए।`,
+                                        link: "https://www.learncbse.in/harihar-kaka-extra-questions-and-answers/"
+                                    }
+                                ]
+                            }
+                        },
+                        "sapnon-ke-din": {
+                            title: "Chapter 2: सपनों के-से दिन - Class 10 Hindi",
+                            videos: {
+                                description: "Watch these video lessons to understand the chapter.",
+                                items: [
+                                    {
+                                        title: "Summary of सपनों के-से दिन",
+                                        description: "Understanding the story and its themes.",
+                                        duration: "30 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of the chapter.",
+                                items: [
+                                    {
+                                        title: "सपनों के-से दिन NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?ihin1=2-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Summary of सपनों के-से दिन",
+                                        description: "Understand the story and its themes.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Comprehension Questions",
+                                        description: "Test your understanding of the story with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. संस्मरण का सारांश लिखिए।<br>2. लेखक के बचपन के अनुभवों का वर्णन कीजिए।`,
+                                        link: "https://www.learncbse.in/sapnon-ke-se-din-extra-questions-and-answers/"
+                                    }
+                                ]
+                            }
+                        },
+                        "tatanra-vamira": {
+                            title: "Chapter 3: तताँरा-वामीरो कथा - Class 10 Hindi",
+                            videos: {
+                                description: "Watch these video lessons to understand the chapter.",
+                                items: [
+                                    {
+                                        title: "Summary of तताँरा-वामीरो कथा",
+                                        description: "Understanding the story and its themes.",
+                                        duration: "31 min",
+                                        level: "Beginner",
+                                        link: "https://www.youtube.com/watch?v=2Vq6pE2buL8"
+                                    }
+                                ]
+                            },
+                            reading: {
+                                description: "Read these materials to deepen your understanding of the chapter.",
+                                items: [
+                                    {
+                                        title: "तताँरा-वामीरो कथा NCERT Textbook Chapter",
+                                        description: "Complete chapter from NCERT textbook.",
+                                        icon: "file-pdf",
+                                        link: "https://ncert.nic.in/textbook.php?ihin1=3-14"
+                                    }
+                                ]
+                            },
+                            roadmap: {
+                                description: "Follow this structured path to master the chapter step by step.",
+                                items: [
+                                    {
+                                        title: "Summary of तताँरा-वामीरो कथा",
+                                        description: "Understand the story and its themes.",
+                                        icon: "sort-amount-down",
+                                        status: "completed"
+                                    }
+                                ]
+                            },
+                            practice: {
+                                description: "Apply what you've learned with these practice exercises.",
+                                items: [
+                                    {
+                                        title: "Comprehension Questions",
+                                        description: "Test your understanding of the story with these questions.",
+                                        icon: "question-circle",
+                                        template: `Sample Questions:<br>1. कहानी का सारांश लिखिए।<br>2. तताँरा और वामीरो के चरित्र का वर्णन कीजिए।`,
+                                        link: "https://www.learncbse.in/tatanra-vamira-katha-extra-questions-and-answers/"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            };
+            
+            // Function to open learning interface with specific chapter content
+            function openLearningInterface(subject, chapter) {
+                const content = ncertContent[subject]?.chapters[chapter];
+                if (!content) return;
+                
+                // Set the title
+                learningTitle.textContent = content.title;
+                
+                // Load videos
+                const videosContainer = document.getElementById('videos-container');
+                const videosDescription = document.getElementById('videos-description');
+                videosDescription.textContent = content.videos.description;
+                videosContainer.innerHTML = '';
+                
+                content.videos.items.forEach(video => {
+                    videosContainer.innerHTML += `
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="video-info">
+                                <h3>${video.title}</h3>
+                                <p>${video.description}</p>
+                                <div class="video-meta">
+                                    <span><i class="far fa-clock"></i> ${video.duration}</span>
+                                    <span><i class="far fa-eye"></i> ${video.level}</span>
+                                </div>
+                                <a href="${video.link}" target="_blank" class="read-btn" style="margin-top: 10px;">Watch Video</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Load reading materials
+                const readingContainer = document.getElementById('reading-container');
+                const readingDescription = document.getElementById('reading-description');
+                readingDescription.textContent = content.reading.description;
+                readingContainer.innerHTML = '';
+                
+                content.reading.items.forEach(item => {
+                    readingContainer.innerHTML += `
+                        <div class="reading-card">
+                            <div class="reading-icon">
+                                <i class="fas fa-${item.icon}"></i>
+                            </div>
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            <a href="${item.link}" target="_blank" class="read-btn">Read Now</a>
+                        </div>
+                    `;
+                });
+                
+                // Load roadmap
+                const roadmapContainer = document.getElementById('roadmap-container');
+                const roadmapDescription = document.getElementById('roadmap-description');
+                roadmapDescription.textContent = content.roadmap.description;
+                roadmapContainer.innerHTML = '';
+                
+                content.roadmap.items.forEach((item, index) => {
+                    roadmapContainer.innerHTML += `
+                        <div class="roadmap-item">
+                            <div class="roadmap-icon">
+                                <i class="fas fa-${item.icon}"></i>
+                            </div>
+                            <div class="roadmap-content">
+                                <h3>${item.title}</h3>
+                                <p>${item.description}</p>
+                                <span class="roadmap-status status-${item.status}">${item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Load practice exercises
+                const practiceContainer = document.getElementById('practice-container');
+                const practiceDescription = document.getElementById('practice-description');
+                practiceDescription.textContent = content.practice.description;
+                practiceContainer.innerHTML = '';
+                
+                content.practice.items.forEach(item => {
+                    practiceContainer.innerHTML += `
+                        <div class="practice-card">
+                            <div class="practice-icon">
+                                <i class="fas fa-${item.icon}"></i>
+                            </div>
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            <div class="practice-template">
+                                ${item.template}
+                            </div>
+                            <a href="${item.link}" target="_blank" class="start-practice">Start Exercise</a>
+                        </div>
+                    `;
+                });
+                
+                // Show learning interface
+                learningInterface.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Event listeners for Start Chapter buttons
+            document.querySelectorAll('.start-chapter').forEach(button => {
+                button.addEventListener('click', function() {
+                    const subject = this.getAttribute('data-subject');
+                    const chapter = this.getAttribute('data-chapter');
+                    openLearningInterface(subject, chapter);
+                });
+            });
+            
+            // Close Learning Interface
+            closeLearningBtn.addEventListener('click', function() {
+                learningInterface.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Learning navigation tabs
+            learningNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items and contents
+                    learningNavItems.forEach(i => i.classList.remove('active'));
+                    learningTabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Show the corresponding content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card, .chapter-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = this.classList.contains('chapter-card') ? 'translateY(-10px)' : 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
